@@ -1,0 +1,25 @@
+.course-list .ant-table-tbody > tr > td{
+    background-color: white;
+}
+.student-list{
+    border: 1px solid #e7e7e7;
+    padding:10px 10px;
+    box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.24);
+}
+.next-button{
+    color: white !important;
+    background-color: #5591c3 !important;
+    border-color: #5591c3 !important;
+    border-radius: 7px !important;
+}
+
+.profile-image-style{
+    width:50%;
+    height: 130px;
+}
+@media screen and (max-width: 991px) {
+    .profile-image-style{
+        width:30%;
+        height: 130px;
+    }
+}

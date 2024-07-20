@@ -1,0 +1,73 @@
+.createFormPage {
+  .container {
+    margin-top: 2rem;
+    background-color: #fff;
+    padding: 3rem 2rem;
+
+    .row {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__header {
+    margin-bottom: 2rem;
+
+    &--title {
+      font-size: 1.9rem;
+      font-family: var(--secondary-font);
+      font-weight: 600;
+    }
+  }
+
+  .primeSelect {
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  input,
+  select,
+  textarea {
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0.75rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+
+    &::placeholder {
+      color: #6c757d;
+    }
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    font-weight: bold;
+
+    margin-bottom: 1rem;
+  }
+
+  .btnContainer {
+    margin-top: 2rem;
+    text-align: end;
+  }
+
+  .previewImage {
+    // box-shadow: 6px -6px 10px #000;
+    margin-top: 2rem;
+    height: 200px;
+    width: 100%;
+    object-fit: contain;
+  }
+  .customBtn {
+    border: 3px solid #005C78;
+
+    &:hover {
+      background-color: #006989;
+      color: white !important;
+    }
+  }
+}
