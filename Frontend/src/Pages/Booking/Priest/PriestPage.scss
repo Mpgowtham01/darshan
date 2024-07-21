@@ -1,0 +1,23 @@
+.priestPage {
+    min-height: 80vh;
+    padding: 8rem 0;
+
+    &__cards {
+        .card {
+            cursor: pointer;
+
+            &-title {
+                font-family: var(--secondary-font);
+                font-weight: 600;
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+            }
+
+            img {
+                height: 300px;
+                object-fit: cover;
+                width: 100%;
+            }
+        }
+    }
+}

@@ -1,0 +1,66 @@
+.sidebarcontent{
+  background-color: #6e7f8e;
+}
+
+.submenu > .ant-menu {
+  background-color: #6e7f8e !important;
+}
+.side-menu:hover {
+  background-color: #6e7f8e;
+}
+
+.side-menu span{
+  color: white;
+}
+.side-menu .ant-menu{
+  border: none;
+}
+.side-menu .ant-dropdown-menu {
+  max-height: 250px;
+
+}
+.side-menu .ant-collapse-content {
+  background: #2f313583;
+}
+
+.side-menu .ant-menu-item-selected span{
+  color: black;
+  border: none;
+}
+.side-menu .ant-menu-submenu-arrow::before ,.ant-menu-submenu-arrow,.ant-menu-submenu-arrow::after {
+  color: white;
+}
+
+
+@media screen and (min-width:310px) and (max-width:768px) {
+  .mobileHide{
+    display: none;
+  }
+  .mobileView {
+    display: inline;
+  }
+  .side-menu .ant-menu{
+    border: none;
+  }
+  
+}
+@media screen and (min-width:769px){
+  .mobileView{
+      display: none;
+  }
+}
+
+
+.ant-drawer-body {
+  background-color: #6e7f8e;
+}
+
+.close-btn{
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  color: rgb(144, 180, 84);
+  float: right;
+  font-size: xx-large;
+}
+

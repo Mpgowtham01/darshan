@@ -1,0 +1,100 @@
+.card{
+    margin-left: 45px;
+    background-color: #eef0ef;
+    border-radius: 30px;
+    border: 0.5px solid black;
+    width: 76%;
+    height: 160px;
+    margin-bottom: 30px;
+  }
+  .dashboard-search{
+    margin-top: 50px !important;
+  }
+  .card-cont{
+   text-align: center;
+  }
+  .card-icon{
+    font-size: 38px;
+    position: relative;
+    float: right;
+    bottom: 31px;
+  }
+  .card-count{
+    font-size: 28px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .fes-card{
+    margin-left: 45px;
+    background-color: #c5ccd2;
+    border-radius: 20px;
+    border: 0.5px solid rgb(221, 217, 217);
+    width: 65%;
+    height: 280;
+    border: 8px solid gray;
+    border-radius: 15px;
+    margin-bottom:30px
+  }
+  .fes-card ul{
+    list-style-type: none;
+    padding: 15px;
+    margin-left: 20px;
+    font-size: 25px;
+  }
+  .fes-card li{
+  position: relative;
+  left: 30px;
+  }
+  .fes-card-p{
+    font-weight: 800;
+    font-size: 40px;
+    color: #8c86af;
+    margin-bottom: -15px;
+  }
+
+  @media screen and (min-width:310px) and (max-width:768px) {
+    .card{
+      background-color: antiquewhite;
+      border-radius: 20px;
+      border: 0.5px solid black;
+      width: 75%;
+      height: 160px;
+    }
+    .card-cont{
+      margin-top: 6px;
+      font-size: 25px;
+    }
+    .card-icon{
+      font-size: 34px;
+      float: right;
+    }
+    .card-count{
+      font-size: 28px;
+      text-align: center;
+  
+    }
+    .fes-card{
+        margin-left: 72px;
+        background-color: #c5ccd2;
+        border-radius: 20px;
+        border: 0.5px solid rgb(221, 217, 217);
+        width: 65%;
+        height: 280;
+        border: 8px solid gray;
+        border-radius: 15px;
+    }
+    .dashboard-search {
+      max-width: 200px;
+      margin-left: 67px;
+    }
+  }
+  .cardname{
+    font-size: 28px;
+      text-align: center;
+      font-size: 20px;
+     
+  }
+  .fcard{
+    border-radius: 20px;
+  }

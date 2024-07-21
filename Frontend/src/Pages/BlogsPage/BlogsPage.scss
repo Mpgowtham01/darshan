@@ -1,0 +1,136 @@
+.blogsPage {
+  margin: 8rem 0;
+
+  &__searchField {
+    .input-group {
+      height: 50px;
+
+      input {
+        outline: none;
+        box-shadow: none;
+      }
+
+      svg {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__container {
+    margin-top: 2rem;
+
+    &--cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+
+      @media (min-width: 768px) {
+        &.odd {
+          .first {
+            order: 2;
+          }
+
+          .second {
+            order: 1;
+          }
+        }
+      }
+
+      .title {
+        font-family: var(--secondary-font);
+        font-weight: 600;
+      }
+
+      .description {
+        line-height: 1.7;
+        margin-top: 22px;
+        margin-bottom: 1rem;
+      }
+
+      img {
+        height: 380px;
+        object-fit: cover;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.blogsPage__container--cards {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.blogsPage__container--cards.even .first,
+.blogsPage__container--cards.odd .first {
+  animation: slideInFromLeft 2s ease-in-out forwards;
+}
+
+.blogsPage__container--cards.even .second,
+.blogsPage__container--cards.odd .second {
+  animation: slideInFromRight 2s ease-in-out forwards;
+}
+
+.blogsPage__container--cards .first {
+  flex: 2;
+  padding: 10px;
+}
+
+.blogsPage__container--cards .second {
+  flex: 2;
+  padding: 10px;
+}
+
+.blogsPage__container--cards img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.blogsPage__container--cards .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.blogsPage__container--cards .description {
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+.customBtn {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.customBtn.dark-text {
+  color: #fff;
+  background-color: #005c789d;
+}

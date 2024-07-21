@@ -1,0 +1,156 @@
+.yatra-booking-container {
+    margin-top: 95px;
+    margin-left: 30px;
+    margin-bottom: 50px;
+  }
+  
+  .page-title {
+    margin-bottom: 20px;
+    margin-left: 75px;
+  }
+  
+  .image-gallery {
+    display: flex;
+    gap: 10px; 
+    margin-left: 80px;
+    margin-top: 40px;
+  }
+  
+  .sidebar {
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    width:130px;
+  }
+  
+  .thumbnail {
+    width: 130px;
+    height:90px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    border-radius: 8px;
+    border:3px solid black;
+  }
+  .thumbnail:not(.selected) {
+    opacity: 0.5; /* Dull effect */
+  }
+  
+  .thumbnail:hover {
+    transform: scale(1.1);
+  }
+  
+  .main-image {
+    flex: 5;
+    display: flex;
+   
+  
+  }
+  
+  .main-image img {
+    width: 750px;
+    height:500px;
+  }
+  .selected-image{
+    border-radius:8px;
+  }
+  .package-contents{
+    width:85%;
+    margin-left: 80px;
+    margin-top: 85px;
+  }
+  .days-btn{
+    border-radius: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green !important;
+    height:4vh;
+    border: none !important;
+    width:12vh;
+   
+  }
+  .p-accordion .p-accordion-header {
+    background: none !important;
+    border: 1px solid whitesmoke !important;
+    cursor: pointer !important;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    background-color: transparent !important;
+  }
+  .p-accordion .p-accordion-header:not(.p-highlight):hover {
+    background: none !important;
+  }
+  .p-accordion-header:hover{
+    text-decoration: underline !important;
+  }
+  .price-card{
+    margin-right: 50vh;
+    width:56vh;
+    height: 56vh;
+  }
+  .price-div{
+    margin-left: 10%;
+    display:"flex";
+    flex-direction: row;
+  }
+  .review-section {
+    margin-top: 50px;
+    width:60%;
+    margin-left: 120px;
+
+   
+  }
+  
+  .review-overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .rating {
+    text-align: center;
+    display:"flex" !important;
+    flex-direction: row !important;
+  }
+  
+  .stars {
+    display: flex;
+font-size: 30px;
+    justify-content: center;
+    margin-top: 5%;
+  }
+  
+  .review-breakdown {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+  
+  .review-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    width:80vh;
+    margin-left: 15vh;
+  }
+  
+  .review-bar {
+    flex-grow: 1;
+    height: 10px;
+    background-color: #e0e0e0;
+    margin: 0 10px;
+    position: relative;
+    border-radius: 10px;
+    height:2vh;
+  }
+  
+  .filled-bar {
+    height: 100%;
+    background-color: green;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+  }
+  

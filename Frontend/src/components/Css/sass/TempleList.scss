@@ -1,0 +1,106 @@
+.home-1 {
+    background-image: url("../../Images/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 5%;
+    width: 100% !important;
+    min-height: 70vh;
+    position: relative;
+    background-position: center;
+  }
+  .event-background {
+    background-color: rgb(191, 209, 218);
+  }
+  .event-card {
+    width: 25%;
+    height: 35px;
+  }
+  .home-img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100% !important;
+    height: 480px;
+  }
+  @media (min-width: 320px) and (max-width: 570px) {
+    .home-img {
+      height: 280px;
+    }
+  }
+  @media (min-width: 571px) and (max-width: 768px) {
+    .home-img {
+      height: 300px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 968px) {
+    .home-img {
+      height: 380px;
+    }
+  }
+  .option-button {
+    background-color: rgb(169, 231, 241);
+    border-radius: 7px;
+    font-size: 14px;
+  }
+  .text-color {
+    color: rgb(163, 241, 241);
+  }
+  .calender-text {
+    display: flex;
+    justify-content: end;
+  }
+  
+  @media (min-width: 320px) and (max-width: 768px) {
+    .calender-text {
+      display: flex;
+      justify-content: center !important;
+    }
+  }
+  .font-style-1 {
+    font-size: 25px;
+    font-style: italic;
+  }
+  .font-style-2 {
+    font-style: italic;
+    font-size: 50px;
+  }
+  
+  .filter-icon-style {
+    color: white;
+    font-size: 20px;
+  }
+  
+  .filter-button {
+    height: 50px;
+    border: none;
+    background-color: rgb(207, 229, 247);
+    border-radius: 10px;
+  
+  }
+  .search-box-god{
+    margin-left: 3%;
+  }
+  .search-box-god-1{
+    border: none;
+    outline: none;
+    width: 20%;
+    height: 50px;
+    background-color: rgb(198, 210, 221);
+   border-top-left-radius: 10px;
+   border-bottom-left-radius: 10px;
+   border-top-right-radius: 0px;
+   border-bottom-right-radius: 0px;
+  }
+  .search-box-god-2{
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 0;
+    border: none;
+    height: 50px;
+    background-color: rgb(207, 229, 247);
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 10px;
+   border-bottom-right-radius: 10px;
+  }
+  
