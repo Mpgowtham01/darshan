@@ -24,7 +24,7 @@ const FileUploadGroup = ({
           </Form.Group>
         </Col>
 
-        <Col lg={6} xl={4}>
+        {/* <Col lg={6} xl={4}>
           <Form.Group controlId="mainImage" className="mb-3">
             <Form.Label>Sub Images</Form.Label>
             <Form.Control
@@ -35,7 +35,7 @@ const FileUploadGroup = ({
             />
           </Form.Group>
           <Form.Text className="text-danger">{subImages?.errorMsg}</Form.Text>
-        </Col>
+        </Col> */}
 
         {/* <Col lg={6} xl={4}>
          

@@ -271,16 +271,17 @@ const YatraBooking = () => {
                marginTop: "1%",
                paddingTop: "0%",
                paddingBottom: "2%",
-               marginBottom:"3%"
+               marginBottom:"3%",
+               boxShadow:"5px 5px 7px 7px rgba(0,0,0,0.1)"
              }}
              key={pkg.id}
            >
                 <Row noGutters>
                   <Col md={4}>
                   <Card.Img
-                  alt="no image"
+  alt="no image"
   variant="top"
-  src={`${process.env.REACT_APP_DEV_BASE_URL}${JSON.parse(pkg.mainImage)}`} // Ensure this URL is correct
+  src={`${process.env.REACT_APP_DEV_BASE_URL}${pkg.mainImage ? pkg.mainImage : 'default-image-url'}`} // Use a default image if pkg.mainImage is invalid
   style={{ width: "100%", height: "255px", marginLeft: "6%", marginTop: "6%", borderRadius: "10px" }}
   onClick={() => handleCardClick(pkg.id)}
 />

@@ -36,7 +36,7 @@ Admin.post("/register", (req, res) => {
         phone_number: UserData.phone_number,
       },
     })
-    .then(Admin => {
+    .then((Admin) => {
       if (!Admin) {
         console.log(Admin, "adminline-41");
         console.log(UserData, "usersData");
@@ -44,7 +44,7 @@ Admin.post("/register", (req, res) => {
         UserData.password = hash;
         admin
           .create(UserData)
-          .then(Admin => {
+          .then((Admin) => {
             let token = jwt.sign(Admin.dataValues, process.env.SECRET_KEY, {
               expiresIn: 1440,
             });
@@ -54,7 +54,7 @@ Admin.post("/register", (req, res) => {
               token: token,
             });
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("Error on users");
             res.send({ error: +err });
           });
@@ -63,42 +63,63 @@ Admin.post("/register", (req, res) => {
         res.json({ error: "users already exists" });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.send("error: " + err);
     });
 });
 
 Admin.post("/login", (req, res) => {
-  console.log(req.body.phone_number);
-  console.log(req.body.password);
+  try {
+    console.log("req", req.body);
+    dbConfig.query(
+      `SELECT * FROM users WHERE phone_number = "${req.body.phone_number}"`,
+      (err, rows) => {
+        if (rows?.length > 0) {
+          const user = rows[0];
 
-  admin
-    .findOne({
-      where: {
-        phone_number: req.body.phone_number,
-      },
-    })
-    .then(user => {
-      if (user) {
-        console.log(req.body.password);
-        if (bcrypt.compareSync(req.body.password, user.password)) {
-          let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-            expiresIn: 1440,
-          });
-          res.json({ user: user, token: token });
-          console.log(token);
+          console.log("user@@@", user);
+          if (!err) {
+            const password = bcrypt.compareSync(
+              req.body.password,
+              user.password
+            );
+
+            if (password) {
+              const token = jwt.sign(
+                { userId: user?.id },
+                process.env.JWT_SECRET_KEY,
+                {
+                  expiresIn: 60 * 60,
+                }
+              );
+
+              return res
+                .cookie("jwt", token, { maxAge: "3600000", httpOnly: true })
+                .json({
+                  status: "Success",
+                  message: "Login successful",
+                  data: {
+                    data: user,
+                    token: token,
+                  },
+                });
+            } else {
+              return res
+                .status(500)
+                .json({ status: "Failed", message: "Something went wrong" });
+            }
+          }
         } else {
-          console.log("Wrong password");
-          return res.json({ error1: "Wrong password" });
+          // res.send({ message: "User Does not Exist" });
+          return res
+            .status(402)
+            .json({ status: "Failed", message: "User does not exist" });
         }
-      } else {
-        console.log("User does not exist");
-        return res.json({ error: "users does not exist" });
       }
-    })
-    .catch(err => {
-      res.status(400).json({ error: err });
-    });
+    );
+  } catch (error) {
+    res.status(500).json({ status: "Failed", message: "Something went wrong" });
+  }
 });
 
 Admin.put("/update/:id", (req, res) => {

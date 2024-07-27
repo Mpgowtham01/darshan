@@ -7,6 +7,9 @@ import CountryList from "../Pages/Admin/AddList/CountryList";
 import DistrictList from "../Pages/Admin/AddList/DistrictList";
 import Festival from "../Pages/Admin/AddList/FestivalList";
 import Grouptable from "../Pages/Admin/AddList/GrouptableList";
+import  SubGroup from "../Pages/Admin/CreateFields/SubGroup.js"
+import  SubGroupList from "../Pages/Admin/AddList/subGroupList"
+
 import MaingodList from "../Pages/Admin/AddList/MaingodList";
 import PariharamList from "../Pages/Admin/AddList/PariharamList";
 import Speciality from "../Pages/Admin/AddList/SpecialityList";
@@ -77,6 +80,8 @@ import EventList from "../Pages/Event/EventList";
 import EventType from "../Pages/Event/EventType";
 import ForgetPassword from "../Pages/ForgetPassword";
 import PriestApprovalList from "../Pages/Approval/PriestList/index.jsx"
+import YatraBookingPackages from "../Pages/Admin/YatraBookingDetais/YatraBookingPackages.js";
+import AddYatraBooking from "../Pages/Admin/YatraBookingDetais/AddYatraBooking.js";
 export const AdminRoutes = [
   {
     path: "",
@@ -346,6 +351,16 @@ export const AdminRoutes = [
     element: <YatraBookingTable />,
   },
   {
+    path: "/admin/yatra-booking/packages",
+    name: "YatraBooking",
+    element: <YatraBookingPackages />,
+  },
+  {
+    path: "/admin/yatra-booking/yatraform",
+    name:"YatraForm",
+    element: <AddYatraBooking/>,
+    },
+  {
     path: "/admin/priest-details",
     name: "IyerDetails",
     element: <IyerDetailsList />,
@@ -494,6 +509,16 @@ export const AdminRoutes = [
     path: "/admin/group",
     name: "GroupTable",
     element: <Grouptable />,
+  },
+  {
+    path: "/admin/subGroup",
+    name: "SubGroup",
+    element: <SubGroup />,
+  },
+  {
+    path: "/admin/subGroupList",
+    name: "SubGroupList",
+    element: <SubGroupList />,
   },
   {
     path: "EventCategoriesform",

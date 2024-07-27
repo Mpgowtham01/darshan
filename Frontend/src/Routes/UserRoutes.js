@@ -6,6 +6,8 @@ import TempleForms from "../Pages/Admin/UserNew/UserPages/TempleForms";
 import Reward from "../Pages/Admin/UserNew/UserPages/Reward";
 import PriestBook from "../Pages/Admin/UserNew/UserPages/PriestBook";
 import UpdatePriestBooking from "../Pages/Admin/UserNew/UserPages/UpdatePriestBook";
+import YatraDetils from "../Pages/Admin/UserNew/UserPages/YatraDetails";
+import RoomDetails from "../Pages/Admin/UserNew/UserPages/RoomDetails";
 export const UserRoutes = [
   {
     path: "",
@@ -21,6 +23,16 @@ export const UserRoutes = [
     path: "/user/priestBooking",
     name: "UserTemple",
     element: <PriestBooking />,
+  },
+  {
+    path: "/user/yatraDetails",
+    name: "UserTemple",
+    element: <YatraDetils />,
+  },
+  {
+    path: "/user/roomDetails",
+    name: "UserTemple",
+    element: <RoomDetails />,
   },
   {
     path: "/user/priestBook",

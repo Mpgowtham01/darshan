@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Col, Form, Card, Button, InputGroup,  Modal,
 } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   getAreaList,
   getCityList,
@@ -12,7 +12,7 @@ import {
 } from "../../../../src/Pages/Admin/AddTempleList/utils";
 import Layout from "../../../components/Layout";
 import Api from "../../../Api";
-import { Divider, Rate } from "antd";
+import { Divider, Rate, DatePicker } from "antd";
 
 export default function Iyer_list(props) {
   const [filtered, setFiltered] = useState([]);
@@ -28,13 +28,13 @@ export default function Iyer_list(props) {
   const [city, setCity] = useState(null);
   const [area, setArea] = useState(null);
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const handleNavigate = (prefill) => {
     navigate("/boomyiyer/priestbooking", { state: { prefill } });
   };
+  const { state: location } = useLocation();
+  console.log('location', location)
   const navigate = useNavigate();
   useEffect(() => {
     getAllIyer();
@@ -109,13 +109,15 @@ export default function Iyer_list(props) {
   return (
     <Layout>
       <br />
-      <div className="mt-5 pt-2">
+      <div className="mt-5 pt-2 pb-4">
         <div className="row">
-          <Col xs={3} md={3} lg={3} className="filter-cards">
-            <div className="ms-3 filter-div pb-5">
-              <h6 className="my-2 pt-3">&nbsp;Filter Search</h6>
+          <Col xs={3} md={3} lg={3} >
+          <Card style={{height:"95%",marginTop:"2vh",marginLeft:"2vh"}}>
+            <div className="ms-4 filter-div pb-5">
+              <h6 className="my-2 pt-3 pb-3">&nbsp;Filter Search</h6>
+              <h6>{location?.select === "auspicious" ? "AUSPICIOUS LIST (சுபகாரியம்)" : "INAUSPICIOUS LIST (அபகாரியம்)"}</h6>
               <div className="">
-                <h6 className="my-3">Language</h6>
+          <label style={{marginTop:"2vh"}}>Language</label>
                 <div className="language-buttons ms-0 pt-2">
                   {[
                     "English",
@@ -125,7 +127,7 @@ export default function Iyer_list(props) {
                     "Kannada",
                     "Malayalam",
                   ].map((lang) => (
-                    <Button
+                    <Button style={{width:"auto",fontSize:'11.5px'}}
                       key={lang}
                       variant={
                         languages.includes(lang)
@@ -140,8 +142,28 @@ export default function Iyer_list(props) {
                   ))}
                 </div>
               </div>
-              <h6 className="my-3 ms-2">Location</h6>
-              <Form.Group controlId="country" className="ms-2 me-2">
+              <label style={{marginTop:"1vh"}}>Date</label>
+              <DatePicker style={{ width: "100%",height:"37px",borderRadius:"5px",border:'1px solid gray' }} />
+              <label style={{marginTop:"1vh"}}>Place</label>
+              <InputGroup style={{ width: "100%" }}>
+                <Form.Control
+                  onChange={(e) =>
+                    setFiltered(
+                      filtered.filter((guide) =>
+                        guide.iyername
+                          .toLowerCase()
+                          .includes(e.target.value.toLowerCase())
+                      )
+                    )
+                  }
+                  placeholder="Search Place"
+                  aria-describedby="SearchGuide"
+                />
+                <InputGroup.Text id="SearchGuide">
+                  <BsSearch />
+                </InputGroup.Text>
+              </InputGroup>
+              {/* <Form.Group controlId="country" className="ms-2 me-2">
                 <Form.Control
                   className="location-filter"
                   as="select"
@@ -215,16 +237,17 @@ export default function Iyer_list(props) {
                     </option>
                   ))}
                 </Form.Control>
-              </Form.Group>
+              </Form.Group> */}
               <div className="d-flex justify-content-between me-3 mt-3">
                 <Button className="guide-filter-reset" onClick={resetFilters}>
                   Reset
                 </Button>
               </div>
             </div>
+            </Card>
           </Col>
           <Col className="right-content-pooja py-3 ms-5 me-3">
-            <div className="d-flex justify-content-between mt-3">
+            {/* <div className="d-flex justify-content-between mt-3">
               <h5 className="mb-0">IYER LIST</h5>
               <InputGroup style={{ width: "30%" }}>
                 <Form.Control
@@ -244,10 +267,10 @@ export default function Iyer_list(props) {
                   <BsSearch />
                 </InputGroup.Text>
               </InputGroup>
-            </div>
+            </div> */}
             <div className="row mt-4">
               {filtered.map((item) => (
-                <Col md={12} lg={4} sm={12} className="mt-4 me-3" key={item.iyerId}>
+                <Col md={12} lg={4} sm={12} className="mt-2 me-3" key={item.iyerId}>
                   <Card
                     className="guide-card-alignment"
                     style={{ height: "100%" }}

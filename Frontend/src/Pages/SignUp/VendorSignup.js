@@ -784,7 +784,7 @@ const VendorSignup = () => {
     status: null,
     message: null,
   });
-
+  const [vendorType, setVendorType] = useState("");
   const handlePasswordShown = () => {
     setselectPasswordShown(!selectPasswordShown);
   };
@@ -831,6 +831,7 @@ const VendorSignup = () => {
     Api.post("vendor/register", {
       vendor_name: VendorName,
       business_name: BusinessName,
+      vendorType: vendorType,
       // country_code_id: selectCountryCode,
       country_id: countryId,
       state_id: stateId,
@@ -909,15 +910,29 @@ const VendorSignup = () => {
                       style={{ flexDirection: "column", display: "flex" }}
                       className="my-2"
                       firstInput>
+                          <label className="userSignUp_Input">
+                        Vendor Type{" "}
+                        <span className="mb-0" style={{ color: "red" }}>
+                          *
+                        </span>
+                      </label>
+                      <Select
+                        className="form-control Input shadow-none"
+                        value={vendorType}
+                        onChange={(value) => setVendorType(value)}
+                      >
+                        <Option value="Vendor">Vendor</Option>
+                        <Option value="Iyer">Iyer</Option>
+                      </Select>
                       <label className="userSignUp_Input">
-                        Vendor Name{" "}
+                        {vendorType} Name{" "}
                         <span className="mb-0" style={{ color: "red" }}>
                           *
                         </span>
                       </label>
                       <input
                         className="form-control Input shadow-none"
-                        placeholder="Enter Vendor Name*"
+                        placeholder={`Enter ${vendorType} Name*`}
                         allowclear="true"
                         onBlur={handleBlur("VendorName")}
                         value={VendorName}

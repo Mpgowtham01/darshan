@@ -19,7 +19,7 @@ const Dashboard = () => {
     if (!sessionStorage.getItem("USER_AUTH_STATE")) navigate("/adminlogin");
   }, [logout]);
 
-  const logoutHandler = e => {
+  const logoutHandler = (e) => {
     e.preventDefault();
     sessionStorage.removeItem("USER_AUTH_STATE");
     setLogout(true);
@@ -31,16 +31,18 @@ const Dashboard = () => {
           <div className="dashboard__headerNav--container">
             <span
               className="navMenu"
-              onClick={() => setIsHeaderNavOpen(prev => !prev)}>
+              onClick={() => setIsHeaderNavOpen((prev) => !prev)}
+            >
               {isHeaderNavOpen ? <AiOutlineClose /> : <GiHamburgerMenu />}
             </span>
             <span className="logo" onClick={() => navigate("/")}>
-              Darshan Journey
+              Admin
             </span>
             <AiOutlineLogout
               className="navMenu"
               style={{ marginLeft: "auto" }}
-              onClick={logoutHandler}>
+              onClick={logoutHandler}
+            >
               Logout
             </AiOutlineLogout>
           </div>

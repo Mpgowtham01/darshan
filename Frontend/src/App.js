@@ -77,6 +77,7 @@ import PriestBookingForm from "./Pages/Booking/PriestBooking";
 import YatraBooking from "./Pages/Booking/YatraBooking/index.jsx";
 import RoomBooking from "./Pages/Booking/RoomBooking/index.js";
 import Vendorservice from "./Pages/vendor/Vendorservice.jsx";
+import VendorContainer from "./Pages/VendorContainer/DefaultLayout";
 
 import Product from "./Pages/Vendorcart/Products.jsx";
 import Home from "./Pages/Vendorcart/Home.jsx";
@@ -89,6 +90,7 @@ import Iyer_list from "./Iyer/Pooja/Iyer_list/index.js";
 import YatraBookingForm from "./Pages/Booking/YatraBooking/YatraBookingForm.js";
 import YatraBookingLandingpg from "./Pages/Booking/YatraBooking/YatraBookingLandingpg.js";
 import RoomBookingUi from "./Pages/Booking/RoomBooking/RoomBookingUi.jsx";
+import RoomBookinglandingPage from "./Pages/Booking/RoomBooking/RoomBookinglandingPage.js";
 
 const ProtectedRoute = ({ Component, redirectTo = "/login" }) => {
   const isAuthenticated = sessionStorage.getItem("USER_AUTH_STATE");
@@ -193,11 +195,30 @@ const App = () => {
           element={<PriestBookingForm />}
         />
         {/* <Route path="/yatrabooking" element={<YatraBookingForm />} /> */}
-        <Route path="/yatrabooking" element={<YatraBooking />} />
-        <Route path="/yatrabooking/landingpage/:id" element={<YatraBookingLandingpg/>}/>
-        <Route path="/yatrabooking/form" element={<YatraBookingForm/>}/>
+        {/* <Route path="/yatrabooking" element={<YatraBooking />} /> */}
+        <Route
+          path="/yatrabooking"
+          element={
+            <ProtectedRoute Component={YatraBooking} redirectTo="/login" />
+          }
+        />
+        <Route
+          path="/yatrabooking/landingpage/:id"
+          element={<YatraBookingLandingpg />}
+        />
+        <Route path="/yatrabooking/form" element={<YatraBookingForm />} />
         <Route path="/roombooking" element={<RoomBooking />} />
-        <Route path="/roombookingDetails" element={<RoomBookingUi />} />
+        <Route
+          path="/roombookingDetails"
+          element={
+            <ProtectedRoute Component={RoomBookingUi} redirectTo="/Login" />
+          }
+        />
+        <Route
+          path="/roomBooking/landingpage/:id"
+          element={<RoomBookinglandingPage />}
+        />
+        <Route path="/vendorsContainer" element={<VendorContainer />} />
         <Route
           path="/priestfunctiondetails/:id"
           element={<PriestFunctionDetails />}
@@ -264,14 +285,18 @@ const App = () => {
             <Route key={index} path={path} element={Ele} />
           ))} */}
         </Route>
+
         <Route path="/iyer" element={<UserIyerMain />}>
           {UserIyerRoutes.map(({ path, element: Ele }, index) => (
             <Route key={index} path={path} element={Ele} />
           ))}
         </Route>
-        <Route path="/bookmyiyer/puja" element={<Pooja />} />
+        <Route
+          path="/bookmyiyer/puja"
+          element={<ProtectedRoute Component={Pooja} redirectTo="/Login" />}
+        />
         <Route path="/bookmyiyer/vendorBooking" element={<Vendorservice />} />
-        <Route path="/bookmyiyer/puja/details/:id" element={<PoojaDetail />} />
+        <Route path="/bookmyiyer/puja/details" element={<PoojaDetail />} />
 
         <Route path="/bookmyiyer/aboutus" element={<IyerAboutUs />} />
         <Route path="/bookmyiyer/blog" element={<BlogsPage />} />

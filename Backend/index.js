@@ -140,7 +140,7 @@ const loginRouter = require("./router/login.router");
 const trainerclasslist = require("./router/trainerclasslist.router");
 const communityTempleRouter = require("./router/communityTemple.router");
 const yatraBookingRouter = require("./router/yatra.router");
-const roomBookingRouter = require("./router/roomBooking.router");
+// const roomBookingRouter = require("./router/roomBooking.router");
 
 const trainer_trainerlist = require("./router/trainer_trainerlist.router");
 const guide_register = require("./router/guide_register.router");
@@ -151,11 +151,13 @@ const templeServiceVendor = require("./router/templeservice.router");
 const trainerCourse = require("./router/trainercourse.router");
 //end
 const Pooja = require("./router/pooja.router");
+const Inauspicious = require("./router/Inauspiciousevent");
 
 const guidelist = require("./router/guidelist.router");
 const guide_guidelist = require("./router/guide_guidelist.router");
 const yatraBookingRouters = require("./router/YatraBooking.router");
 const hotelBookingRouters = require("./router/HotelBooking.router");
+const subGroupRouters = require("./router/subGroupRouter");
 
 app.get("/logout", (req, res) => {
   res
@@ -179,6 +181,7 @@ app.use("/training", training);
 app.use("/trainerclasslist", trainerclasslist);
 app.use("/trainer_trainerlist", trainer_trainerlist);
 app.use("/pooja", Pooja);
+app.use("/inauspicious", Inauspicious);
 app.use("/guidelist", guidelist);
 app.use("/guide_guidelist", guide_guidelist);
 app.use("/country", country);
@@ -217,6 +220,7 @@ app.use("/trainer", trainerRouter);
 app.use("/iyerbooking", iyerbookingRouter);
 app.use("/yatrabook", yatraBookingRouters);
 app.use("/roombook", hotelBookingRouters);
+app.use("/subGrroup", subGroupRouters);
 app.use("/insidetemple", selectinsidetemple);
 app.use("/outsidetemple", selectoutsidetemple);
 app.use("/selectfunctiontype", selectfunctiontype);
@@ -245,7 +249,7 @@ app.use("/community", communityRouter);
 app.use("/login", loginRouter);
 app.use("/communityTemple", communityTempleRouter);
 app.use("/yatraBooking", yatraBookingRouter);
-app.use("/roomBooking", roomBookingRouter);
+// app.use("/roomBooking", roomBookingRouter);
 
 // app.use("/communityParent", communityParentRouter);
 app.use("/password", forgotpassword);

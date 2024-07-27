@@ -34,9 +34,8 @@ const PriestBookingForm = () => {
   const [area, setArea] = useState(null);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
-  const [priestName, setPriestName] = useState("");
-  const [priestContact, setPriestContact] = useState("");
-  const [priestEmail, setPriestEmail] = useState("");
+  const [Endtime, setEndTime] = useState(null);
+  const [place, setPlace] = useState("");
   const [priestAddress, setPriestAddress] = useState("");
 
   const [serviceType, setServiceType] = useState("");
@@ -47,6 +46,7 @@ const PriestBookingForm = () => {
   const [serviceValues, setServiceValues] = useState([]);
 
   const serviceTypes = localStorage.getItem("item");
+
   useEffect(() => {
     setServiceType(serviceTypes);
   }, [serviceTypes]);
@@ -61,6 +61,7 @@ const PriestBookingForm = () => {
   const {
     register,
     handleSubmit,
+    control,
     setValue,
     formState: { errors },
   } = useForm();
@@ -82,9 +83,9 @@ const PriestBookingForm = () => {
       .then((resp) => {
         const userData = resp.data[0];
         setdata(userData);
-        setValue("name", userData.UserName);
-        setValue("priestContact", userData.Phone);
-        setValue("priestEmail", userData.EmailId);
+        setValue("name", userData?.UserName);
+        setValue("priestContact", userData?.Phone);
+        setValue("priestEmail", userData?.EmailId);
       });
   };
 
@@ -103,13 +104,6 @@ const PriestBookingForm = () => {
       contact: data?.Phone,
     });
   }, [data]);
-
-  const serviceDurationOptions = [
-    { label: "1-2 hours", value: "1-2 hours" },
-    { label: "2-3 hours", value: "2-3 hours" },
-    { label: "3-4 hours", value: "3-4 hours" },
-    { label: "4-5 hours", value: "4-5 hours" },
-  ];
 
   const toast = useRef(null);
 
@@ -177,7 +171,7 @@ const PriestBookingForm = () => {
           detail: "Form submitted successfully",
           life: 3000,
         });
-        localStorage.removeItem("item")
+        localStorage.removeItem("item");
       })
       .catch((err) => console.log("err :>> ", err));
   };
@@ -231,92 +225,6 @@ const PriestBookingForm = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="serviceDuration">Service Duration</label>
-                    <Dropdown
-                      id="serviceDuration"
-                      value={serviceDuration}
-                      options={serviceDurationOptions}
-                      onChange={(e) => setServiceDuration(e.value)}
-                      optionLabel="label"
-                      placeholder="Select a duration"
-                      className="primeSelect"
-                    />
-                  </div>
-                </div>
-                <br />
-                <h3>Service Location</h3>
-                <div className="grid">
-                  <div className="form-group">
-                    <label htmlFor="country">Select Country</label>
-                    <Dropdown
-                      filter
-                      value={countryValue}
-                      id="country"
-                      onChange={countryOnChangeHandler}
-                      optionLabel="country"
-                      optionValue="id"
-                      options={countriess}
-                      className="primeSelect"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="state">Select State</label>
-                    <Dropdown
-                      filter
-                      value={stateValue}
-                      id="state"
-                      onChange={statesOnChangeHandler}
-                      optionLabel="state"
-                      optionValue="id"
-                      options={stateList}
-                      className="primeSelect"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="district">Select District</label>
-                    <Dropdown
-                      filter
-                      value={district}
-                      id="district"
-                      onChange={districtOnChangeHandler}
-                      optionLabel="district"
-                      optionValue="id"
-                      options={districtList}
-                      className="primeSelect"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="city">Select City</label>
-                    <Dropdown
-                      filter
-                      value={city}
-                      id="city"
-                      onChange={cityOnChangeHandler}
-                      optionLabel="city"
-                      optionValue="id"
-                      options={cityList}
-                      className="primeSelect"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="area">Select Area</label>
-                    <Dropdown
-                      filter
-                      value={area}
-                      id="area"
-                      onChange={areasOnChangeHandler}
-                      optionLabel="area_name"
-                      optionValue="area_id"
-                      options={areaList}
-                      className="primeSelect"
-                    />
-                  </div>
-
-                  <div className="form-group">
                     <label htmlFor="date">Date</label>
                     <Calendar
                       value={date}
@@ -328,17 +236,41 @@ const PriestBookingForm = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="time">Time</label>
+                    <label htmlFor="time">Start Time</label>
                     <Calendar
-                      value={time}
-                      id="time"
+                      variant="filled"
                       className="date"
                       timeOnly
+                      placeholder="Please choose"
                       hourFormat="12"
+                      value={time}
                       onChange={(e) => setTime(e.value)}
-                    ></Calendar>
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="time">End Time</label>
+                    <Calendar
+                      variant="filled"
+                      timeOnly
+                      className="date"
+                      placeholder="Please choose"
+                      hourFormat="12"
+                      value={Endtime}
+                      onChange={(e) => setEndTime(e.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="specialInstructions">Place</label>
+                    <input
+                      id="place"
+                      value={place}
+                      onChange={(e) => setPlace(e.target.value)}
+                      className="form-control"
+                    ></input>
                   </div>
                 </div>
+                <br />
+
                 <br />
                 <h3>Personal Details</h3>
                 <div className="grid">
@@ -393,10 +325,10 @@ const PriestBookingForm = () => {
                   </div>
                 </div>
 
-                <div className="text-center mt-5">
+                <div className="text-center mt-3">
                   <button
                     type="submit"
-                    disabled={disableSubmitBtn}
+                    // disabled={disableSubmitBtn}
                     className="customBtn bg"
                   >
                     Submit

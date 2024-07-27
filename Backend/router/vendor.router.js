@@ -12,117 +12,173 @@ const admin = require("../model/vendors.model");
 Admin.use(cors());
 
 Admin.post("/register", (req, res) => {
-  console.log("vendor", req.body);
-  const VendorData = {
-    vendor_name: req.body.vendor_name,
-    business_name: req.body.business_name,
-    // country_code_id: req.body.country_code_id,
-    country_id: req.body.country_id,
-    state_id: req.body.state_id,
-    district_id: req.body.district_id,
-    city_id: req.body.city_id,
-    area_id: req.body.area_id,
-    address: req.body.address,
-    pincode: req.body.pincode,
-    phone_number: req.body.phone_number,
-    password: req.body.password,
-    is_active: req.body.is_active || false,
-    post: req.body.post || "0",
-    isApproved: req.body.isApproved || 0,
-    rejectReasonByAdmin: req.body.rejectReasonByAdmin || "",
-  };
+  const {
+    vendorType,
+    vendor_name,
+    business_name,
+    country_id,
+    state_id,
+    district_id,
+    city_id,
+    area_id,
+    address,
+    pincode,
+    phone_number,
+    password,
+    is_active = false,
+    post = "0",
+    isApproved = 0,
+    rejectReasonByAdmin = "",
+  } = req.body;
 
-  admin
-    .findOne({
-      where: {
-        phone_number: VendorData.phone_number,
-      },
-    })
-    .then((Admin) => {
-      if (!Admin) {
-        console.log(Admin, "adminline-41");
-        console.log(VendorData, "usersData1");
-        const hash = bcrypt.hashSync(VendorData.password, 10);
-
-        VendorData.password = hash;
-
-        admin
-          .create(VendorData)
-          .then((Admin) => {
-            console.log(Admin, "usersData2");
-            let token = jwt.sign(Admin.dataValues, process.env.SECRET_KEY, {
-              expiresIn: 1440,
-            });
-
-            res.status(200).json({
-              vendors: Admin,
-              token: token,
-              status: "Success",
-              message:
-                "Registration is successful please wait for admin confirmation",
-            });
-          })
-          .catch((err) => {
-            console.log("Error on vendor");
-            res.status(401).json({
-              status: "Failed",
-              message: "Error on vendor signup",
-            });
-          });
-      } else {
-        console.log("users already exists");
-        res
-          .status(500)
-          .json({ status: "Failed", message: "users already exists" });
+  dbConfig.query(
+    `SELECT * FROM vendors WHERE phone_number = ?`,
+    [phone_number],
+    (err, existingVendor) => {
+      if (err) {
+        console.error("Error checking existing vendor:", err);
+        return res.json({
+          status: "Failed",
+          message: "Error checking existing vendor",
+          error: err.message || err,
+        });
       }
-    })
-    .catch((err) => {
-      res
-        .status(400)
-        .json({ status: "Failed", message: "Error occured try again later" });
-    });
+
+      if (existingVendor.length > 0) {
+        const user = {
+          username: existingVendor[0].vendor_name,
+          id: existingVendor[0].id,
+        };
+        return res.json({
+          status: "Success",
+          result: user,
+          message:
+            "Phone number already exists. Returning existing vendor data.",
+        });
+      }
+
+      const hash = bcrypt.hashSync(password, 10);
+      const sql = `INSERT INTO vendors (vendor_name, business_name, country_id, state_id, district_id, city_id, area_id, address, pincode, phone_number, password, is_active, post, isApproved, rejectReasonByAdmin, vendorType)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+      const values = [
+        vendor_name,
+        business_name,
+        country_id,
+        state_id,
+        district_id,
+        city_id,
+        area_id,
+        address,
+        pincode,
+        phone_number,
+        hash,
+        is_active,
+        post,
+        isApproved,
+        rejectReasonByAdmin,
+        vendorType,
+      ];
+
+      dbConfig.query(sql, values, (err, result) => {
+        if (err) {
+          console.error("Error on vendor registration:", err);
+          return res.json({
+            status: "Failed",
+            message: "Error on vendor signup",
+            error: err.message || err,
+          });
+        }
+
+        dbConfig.query(
+          `SELECT * FROM vendors WHERE phone_number = ?`,
+          [phone_number],
+          (err, newVendor) => {
+            if (err) {
+              console.error("Error retrieving new vendor:", err);
+              return res.json({
+                status: "Failed",
+                message: "Error retrieving new vendor",
+                error: err.message || err,
+              });
+            }
+
+            const user = {
+              username: newVendor[0].vendor_name,
+              id: newVendor[0].id,
+            };
+
+            return res.json({
+              status: "Success",
+              result: user,
+              message:
+                "Registration is successful. Please wait for admin confirmation.",
+            });
+          }
+        );
+      });
+    }
+  );
 });
 
 Admin.post("/login", (req, res) => {
-  console.log(req.body.phone_number);
-  console.log(req.body.password);
+  try {
+    console.log("req", req.body);
+    dbConfig.query(
+      `SELECT * FROM vendors WHERE phone_number = "${req.body.phone_number}"`,
+      (err, rows) => {
+        if (rows?.length > 0) {
+          const user = rows[0];
+          console.log("user@@@", user);
+          if (!err) {
+            const password = bcrypt.compareSync(
+              req.body.password,
+              user.password
+            );
 
-  admin
-    .findOne({
-      where: {
-        phone_number: req.body.phone_number,
-      },
-    })
-    .then((user) => {
-      if (user) {
-        console.log(req.body.password, user.password);
-        console.log("user", user);
-        if (bcrypt.compare(req.body.password, user["dataValues"].password)) {
-          let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-            expiresIn: 1440,
-          });
-          res.json({
-            id: user["dataValues"].vendor_id,
-            name: user["dataValues"].vendor_name,
-            token: token,
-            role: "vendor",
-          });
-          console.log(token);
+            if (user?.isApproved != 1) {
+              return res
+                .status(403)
+                .json({ status: "Failed", message: "Admin need's to approve" });
+            }
+
+            if (password) {
+              const token = jwt.sign(
+                { userId: user?.id },
+                process.env.JWT_SECRET_KEY,
+                {
+                  expiresIn: 60 * 60,
+                }
+              );
+
+              return res
+                .cookie("jwt", token, { maxAge: "3600000", httpOnly: true })
+                .json({
+                  status: "Success",
+                  message: "Login successful",
+                  data: {
+                    user: user,
+                    token: token,
+                    isAuthenticated: true,
+                  },
+                });
+            } else {
+              return res
+                .status(500)
+                .json({ status: "Failed", message: "Something went wrong" });
+            }
+          }
         } else {
-          console.log("Wrong password");
-          return res.json({ error: "Wrong password" });
+          // res.send({ message: "User Does not Exist" });
+          return res
+            .status(402)
+            .json({ status: "Failed", message: "User does not exist" });
         }
-      } else {
-        console.log("User does not exist");
-        return res.status(500).json({
-          status: "User does not exist",
-          message: "something went wrong please contact Admin ",
-        });
       }
-    })
-    .catch((err) => {
-      res.status(400).json({ error: err });
-    });
+    );
+  } catch (error) {
+    res.status(500).json({ status: "Failed", message: "Something went wrong" });
+  }
 });
 
 const vendors_controller = require("../controller/vendors.controller");

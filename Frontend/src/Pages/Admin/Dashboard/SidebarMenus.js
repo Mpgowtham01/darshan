@@ -30,6 +30,7 @@ export const sidebarMenus = [
       { name: "Area", path: "/admin/area" },
       { name: "Speciality", path: "/admin/speciality" },
       { name: "Group", path: "/admin/group" },
+      { name: "Sub Group", path: "/admin/subGroupList" },
       { name: "Festival", path: "/admin/festival" },
       { name: "Training", path: "/admin/training" },
       { name: "Amenities", path: "/admin/amenities" },
@@ -63,6 +64,7 @@ export const sidebarMenus = [
       { name: "Sub-Categories", path: "/admin/sub-Categories" },
       { name: "Room Booking", path: "/admin/room-booking" },
       { name: "Yatra Booking", path: "/admin/yatra-booking" },
+      { name: "Yatre Booking Packages", path:"/admin/yatra-booking/packages" },
 
       
     ],

@@ -22,14 +22,10 @@ const HomePage = () => {
   const [bookingListDetails, setBookingListDetails] = useState([]);
 
   const displayedCards = bookingListDetails.slice(0, 7);
-  // const tourDetailsCards = tourPackage.slice(0, 3);
-  const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleNavigate = (prefill) => {
-    navigate("/roombooking", { state: { prefill } });
+  const handleNavigate = (id) => {
+    navigate(`/roomBooking/landingpage/${id}`);
   };
   const bookingDetails = () => {
     Api.get("/roombook/getroombooking").then((res) => {
@@ -77,6 +73,7 @@ const HomePage = () => {
           <Row style={{ marginBottom: "30px" }}>
             {displayedCards.map((data) => (
               <Col xs={24} md={6} lg={6} className="HomePageCardCol">
+                {console.log('first', data)}
                 <div className="homePageCard">
                   <div className="HomePageCardContainer">
                     <img
@@ -177,9 +174,8 @@ const HomePage = () => {
                         <div>
                       <Button
                         className="BookingNow_btnDiv me-3"
-                        onClick={handleShow}
-                      >
-                        Book Now
+                        onClick={()=>handleNavigate(data.id)}                      >
+                        View Details
                       </Button>
                     </div>
                         
@@ -228,7 +224,7 @@ const HomePage = () => {
                             <img
                               className="Owl_carsouel_image"
                               src={data.image}
-                              alt="image"
+                              alt="images"
                             />
                           </Col>
                           <Col
@@ -287,27 +283,7 @@ const HomePage = () => {
             </div>
           </center>
         </div>
-        <Modal
-          // {...props}
-
-          size="md"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          show={show}
-          onHide={handleClose}
-        >
-          <Modal.Header closeButton >
-            <div className="model_heading_">Is this Room booking is for yourself or someone else ?</div>
-          </Modal.Header>
-          <Modal.Footer>
-            <Button className="btn_forMyself" onClick={() => handleNavigate(true)}>
-              For Myself
-            </Button>
-            <Button className="btn_forSomeoneelese"  onClick={() => handleNavigate(false)}>
-              For Someone elese
-            </Button>
-          </Modal.Footer>
-        </Modal>
+     
       </Layout>
     </div>
   );

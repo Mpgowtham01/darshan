@@ -348,7 +348,7 @@ const TempleFormPage = () => {
                 othergod_id={locationState?.othergod_id}
                 main_god_id={locationState?.main_god_id}
               />
-              <SecondGroup {...rowsProps} countries={countries} />/
+              <SecondGroup {...rowsProps} countries={countries} />
               <AboutTempleGroup {...rowsProps} />
               <div className="mt-4">
                 <button

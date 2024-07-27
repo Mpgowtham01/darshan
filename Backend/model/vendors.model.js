@@ -9,6 +9,9 @@ module.exports = db.sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
+    vendorType: {
+      type: Sequelize.STRING,
+    },
     vendor_name: {
       type: Sequelize.STRING,
     },

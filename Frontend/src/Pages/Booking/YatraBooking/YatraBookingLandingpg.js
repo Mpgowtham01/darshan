@@ -30,14 +30,14 @@ function YatraBookingLandingpg() {
     );
   };
   const { id } = useParams();
-  const images = [
-    'https://wallpapercave.com/wp/wp6612913.jpg',
-    'https://www.hlimg.com/images/stories/738X538/khajuraho_1537341352m.jpg',
-    'https://thumbs.dreamstime.com/b/ram-temple-ayodhya-222094601.jpg',
-    'https://www.tusktravel.com/blog/wp-content/uploads/2021/03/Things-to-do-in-ancient-place-of-world-Varanasi.jpg',
-    // Add the paths to your images here
-  ];
-  const [selectedImage, setSelectedImage] = useState(images[0]);
+  // const images = [
+  //   'https://wallpapercave.com/wp/wp6612913.jpg',
+  //   'https://www.hlimg.com/images/stories/738X538/khajuraho_1537341352m.jpg',
+  //   'https://thumbs.dreamstime.com/b/ram-temple-ayodhya-222094601.jpg',
+  //   'https://www.tusktravel.com/blog/wp-content/uploads/2021/03/Things-to-do-in-ancient-place-of-world-Varanasi.jpg',
+  //   // Add the paths to your images here
+  // ];
+  const [selectedImage, setSelectedImage] = useState();
   const [activeIndex, setActiveIndex] = useState([0, 1, 2]);
   const [packageDetails, setPackageDetails] = useState(null);
   
@@ -87,7 +87,7 @@ function YatraBookingLandingpg() {
     <div className="yatra-booking-container">
       <h3 className="page-title"><b>{packageDetails.days}&nbsp;Days:&nbsp;{packageDetails.title}</b></h3>
       <div className="image-gallery">
-        <div className="sidebar">
+        <div className="sidebar-gallery">
         {packageDetails.images.map((image, index) => (
               <img
                 key={index}

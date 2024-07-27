@@ -41,12 +41,11 @@ function AdminLogin() {
     Api.post("users/login", {
       phone_number: phoneNumber,
       password: password,
-    }).then(response => {
-      console.log(response);
-      if (response.data.token) {
-        const role = response.data.user.role_name;
-        const token = response.data.token;
-        const userId = response.data.user.user_id;
+    }).then((response) => {
+      if (response.data.data.token) {
+        const role = response.data.data.role_name;
+        const token = response.data.data.token;
+        const userId = response.data.data.user_id;
         const data = {
           isLogin: true,
           role: role,
@@ -56,18 +55,18 @@ function AdminLogin() {
         localStorage.setItem("USER_AUTH_STATE", true);
         localStorage.setItem("Role", "admin");
         dispatch(userLoginAction(data));
-
         navigate("/admin");
         sessionStorage.setItem("USER_AUTH_STATE", true);
       } else {
         console.log(
           "response",
-          response.data.error ? response.data.error : response.data.error1
+          response.data.data.error
+            ? response.data.data.error
+            : response.data.data.error1
         );
       }
     });
   };
-
 
   return (
     <>
@@ -89,7 +88,8 @@ function AdminLogin() {
               actions.resetForm({
                 values: { number: "", password: "" },
               });
-            }}>
+            }}
+          >
             {({
               touched,
               errors,
@@ -115,7 +115,7 @@ function AdminLogin() {
                       onBlur={handleBlur("number")}
                       values={values.number}
                       placeholder="Enter Phone Number"
-                      onChange={e => {
+                      onChange={(e) => {
                         handleChange("number");
                         setPhoneNumber(e.target.value);
                         setFieldValue("number", e.target.value);
@@ -128,7 +128,8 @@ function AdminLogin() {
                           fontSize: 16,
                           padding: 0,
                           margin: 0,
-                        }}>
+                        }}
+                      >
                         {errors.number}
                       </p>
                     )}
@@ -146,16 +147,16 @@ function AdminLogin() {
                         onBlur={handleBlur("password")}
                         values={values.password}
                         placeholder="Enter Password"
-                        onChange={e => {
+                        onChange={(e) => {
                           handleChange("password");
                           setPassword(e.target.value);
                           setFieldValue("password", e.target.value);
                         }}
-                        onCopy={e => {
+                        onCopy={(e) => {
                           e.preventDefault();
                           return false;
                         }}
-                        onPaste={e => {
+                        onPaste={(e) => {
                           e.preventDefault();
                           return false;
                         }}
@@ -176,7 +177,8 @@ function AdminLogin() {
                           fontSize: 16,
                           padding: 0,
                           margin: 0,
-                        }}>
+                        }}
+                      >
                         {errors.password}
                       </p>
                     )}
@@ -184,7 +186,8 @@ function AdminLogin() {
                   <div className="d-flex justify-content-center adminLoginButton">
                     <button
                       className="admin-login-button"
-                      onClick={handleSubmit}>
+                      onClick={handleSubmit}
+                    >
                       <b>Submit</b>
                     </button>
                   </div>

@@ -205,6 +205,11 @@
   font-weight: 400;
 
 }
+.model_heading_Room{
+  font-size: 16px !important ;
+  font-weight: 400;
+
+}
 .guide-filter-reset{
   margin-left: 1vh;
   border: none !important;

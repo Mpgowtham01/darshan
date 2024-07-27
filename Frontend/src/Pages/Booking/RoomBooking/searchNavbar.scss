@@ -83,25 +83,7 @@
       }
     }
   
-    .dropdown {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 0 0 5px 5px;
-      padding: 10px;
-      z-index: 1;
-      transform: scaleY(0);
-      transform-origin: top center;
-      transition: transform 0.3s ease;
-    }
-  
-    &:hover {
-      .dropdown {
-        transform: scaleY(1);
-      }
-    }
+
   }
   
   .user-icon {
@@ -169,7 +151,7 @@
   }
   .select_value {
     width: 100% !important;
-    height: 50px !important;
+    height: 40px !important;
   }
   .payment_homepage {
     display: flex;

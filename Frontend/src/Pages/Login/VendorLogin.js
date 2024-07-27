@@ -58,18 +58,18 @@ const VendorLogin = () => {
       phone_number: Phone,
       password: Password,
     })
-      .then(response => {
+      .then((response) => {
         console.log("response 111", response);
         setRegisterResponse({
-          status: response.data?.status,
-          message: response.data?.message,
+          status: response.data?.data?.status,
+          message: response.data?.data?.message,
         });
 
-        if (response.data.token) {
-          const role = response.data.role;
-          const token = response.data.token;
-          const userId = response.data.id;
-          // const vendor_name = response.data.name,
+        if (response.data.data.token) {
+          const role = response.data.data.user.vendorType;
+          const token = response.data.data.token;
+          const userId = response.data.data.user.vendor_id;
+          // const vendor_name = response.data.name,`
           const data = {
             isLogin: true,
             role: role,
@@ -78,18 +78,18 @@ const VendorLogin = () => {
           };
           localStorage.setItem("USER_AUTH_STATE", true);
           localStorage.setItem("Role", "vendor");
-          localStorage.setItem("id", response.data.id);
-          localStorage.setItem("vendor", response.data.name);
+          localStorage.setItem("id", response.data.data.user.vendor_id);
+          localStorage.setItem("vendor", response.data.data.user.vendor_name);
 
           dispatch(userLoginAction(data));
           navigate("/vendor");
           sessionStorage.setItem("USER_AUTH_STATE", true);
         }
       })
-      .catch(err =>
+      .catch((err) =>
         setRegisterResponse({
-          status: err.response.data?.status,
-          message: err.response.data?.message,
+          status: err.response.data?.data?.status,
+          message: err.response.data?.data?.message,
         })
       );
   };
@@ -109,10 +109,10 @@ const VendorLogin = () => {
             </strong>
           </Toast.Header>
           <Toast.Body>{registerResponse?.message} </Toast.Body> */}
-          {/* <div className="d-flex justify-content-center mb-2 w-100">
+      {/* <div className="d-flex justify-content-center mb-2 w-100">
         <Button onClick={() => navigate(-1)}>OK</Button>
       </div> */}
-        {/* </Toast>
+      {/* </Toast>
       </ToastContainer> */}
       <Formik
         enableReinitialize={true}
@@ -130,7 +130,8 @@ const VendorLogin = () => {
           actions.resetForm({
             values: { phone: "", password: "" },
           });
-        }}>
+        }}
+      >
         {({
           touched,
           errors,
@@ -152,7 +153,7 @@ const VendorLogin = () => {
                   onBlur={handleBlur("phone")}
                   values={values.phone}
                   placeholder="Enter your phone number"
-                  onChange={e => {
+                  onChange={(e) => {
                     handleChange("phone");
                     setPhone(e.target.value);
                     setFieldValue("phone", e.target.value);
@@ -165,13 +166,14 @@ const VendorLogin = () => {
                       fontSize: 16,
                       padding: 0,
                       margin: 0,
-                    }}>
+                    }}
+                  >
                     {errors.phone}
                   </p>
                 )}
               </FormGroup>
               <FormGroup className="mb-3">
-                <label className="userSignUp_Input" >Password :</label>
+                <label className="userSignUp_Input">Password :</label>
                 <InputGroup className="input-group ">
                   <Field
                     className="form-control Input shadow-none"
@@ -179,16 +181,16 @@ const VendorLogin = () => {
                     type={passwordShown ? "text" : "password"}
                     values={values.password}
                     placeholder="Enter your Password"
-                    onChange={e => {
+                    onChange={(e) => {
                       handleChange("password");
                       setPassword(e.target.value);
                       setFieldValue("password", e.target.value);
                     }}
-                    onCopy={e => {
+                    onCopy={(e) => {
                       e.preventDefault();
                       return false;
                     }}
-                    onPaste={e => {
+                    onPaste={(e) => {
                       e.preventDefault();
                       return false;
                     }}
@@ -209,13 +211,14 @@ const VendorLogin = () => {
                       fontSize: 16,
                       padding: 0,
                       marginBottom: 0,
-                    }}>
+                    }}
+                  >
                     {errors.password}
                   </p>
                 )}
               </FormGroup>
 
-              <ForgotPasswordLink role="vendor"/>
+              <ForgotPasswordLink role="vendor" />
               <div className="inputs d-flex justify-content-end ">
                 <Button
                   className="signin-button shadow-none mt-2"

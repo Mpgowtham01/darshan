@@ -38,7 +38,8 @@ export const SidebarMenu = [
     icon: <MdEventAvailable />,
     children: [
       { name: "Priest Booking", path: "/user/priestBooking" },
-      { name: "Iyer Booking", path: "#" },
+      { name: "Yatra Booking", path: "/user/yatraDetails" },
+      { name: "Room Booking", path: "/user/roomDetails" },
     ],
   },
   {

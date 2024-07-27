@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Col, Container, Image, Card, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Col, Container, Image, Button } from "react-bootstrap";
 import Layout from "../../Components/Layout";
 import "./poojadetails.css";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Api from "../../../Api";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ReadMore = ({ children }) => {
   const text = children;
@@ -23,23 +22,13 @@ const ReadMore = ({ children }) => {
 };
 
 export default function PoojaDetail() {
-  const [poojaLists, setAllPooja] = useState();
   const navigate = useNavigate();
-  const handleCardClick = (path) => {
-    navigate(path);
-  };
-  const { id } = useParams();
 
-  useEffect(() => {
-    getOnePooja();
-  }, []);
-
-  const getOnePooja = () => {
-    Api.get(`/pooja/getbyid/${id}`).then((res) => {
-      setAllPooja(res.data);
-    });
-  };
-
+  const { state: location } = useLocation();
+console.log('location', location)
+const handleBookNow = () => {
+  navigate(`/bookmyiyer/iyerlist`, { state: location });
+};
   return (
     <Layout>
       <div className="container-fluid mt-5 pt-2 fullscreen">
@@ -54,15 +43,15 @@ export default function PoojaDetail() {
                 className="d-flex justify-content-center mt-4 mx-5"
                 style={{ flexDirection: "column" }}
               >
-                <h4 className="text-center mb-2">{poojaLists?.poojaName}</h4>
+                <h4 className="text-center mb-2">{location?.item?.poojaName}</h4>
                 <ReadMore className=" d-flex justify-content-center">
-                  {poojaLists?.description}
+                  {location?.item?.description}
                 </ReadMore>
               </div>
             </Col>
             <Col className="px-5">
               <Image
-                src={poojaLists?.image}
+                src={location?.item?.image}
                 alt="Pooja images"
                 height={300}
                 width="100%"
@@ -78,7 +67,7 @@ export default function PoojaDetail() {
               >
                 <Button
                   className="book-style me-1"
-                  onClick={() => navigate("/bookmyiyer/iyerlist")}
+                  onClick={handleBookNow}
                 >
                   Book Now !
                 </Button>
