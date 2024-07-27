@@ -91,6 +91,7 @@ import YatraBookingForm from "./Pages/Booking/YatraBooking/YatraBookingForm.js";
 import YatraBookingLandingpg from "./Pages/Booking/YatraBooking/YatraBookingLandingpg.js";
 import RoomBookingUi from "./Pages/Booking/RoomBooking/RoomBookingUi.jsx";
 import RoomBookinglandingPage from "./Pages/Booking/RoomBooking/RoomBookinglandingPage.js";
+import IyerLandingPage from "./Iyer/Pooja/Iyer_LandingPage/Iyer_LandingPage.js";
 
 const ProtectedRoute = ({ Component, redirectTo = "/login" }) => {
   const isAuthenticated = sessionStorage.getItem("USER_AUTH_STATE");
@@ -208,6 +209,8 @@ const App = () => {
         />
         <Route path="/yatrabooking/form" element={<YatraBookingForm />} />
         <Route path="/roombooking" element={<RoomBooking />} />
+        <Route path="/iyer_LandingPage" element={<IyerLandingPage />} />
+
         <Route
           path="/roombookingDetails"
           element={

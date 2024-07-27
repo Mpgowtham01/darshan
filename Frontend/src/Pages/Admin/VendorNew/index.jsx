@@ -27,6 +27,7 @@ const Dashboard = () => {
     localStorage.removeItem("Role");
     localStorage.removeItem("id");
     localStorage.removeItem("vendor");
+    sessionStorage.removeItem("USER_AUTH_STATE");
 
     setLogout(true);
   };

@@ -25,6 +25,7 @@ const UserLyerMain = () => {
     localStorage.removeItem("Role");
     localStorage.removeItem("id");
     localStorage.removeItem("username");
+    sessionStorage.removeItem("USER_AUTH_STATE");
     navigate("/login");
   };
 

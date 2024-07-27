@@ -43,7 +43,7 @@ const SignUp = () => {
       <HeaderNavBar />
       {/* <br /> */}
       {/* <br /> */}
-      <div className="login-section" style={{backgroundColor:"#01204E"}}>
+      <div className="login-section" style={{ backgroundColor: "#01204E" }}>
         <Row>
           {/* <Col
             xs={12}
@@ -94,7 +94,7 @@ const SignUp = () => {
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    style={{ height: "70vh",borderRadius:"5px" }}
+                    style={{ height: "70vh", borderRadius: "5px" }}
                     src={image}
                     alt="First slide"
                   />
@@ -102,7 +102,7 @@ const SignUp = () => {
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    style={{ height: "70vh",borderRadius:"5px" }}
+                    style={{ height: "70vh", borderRadius: "5px" }}
                     src={image1}
                     alt="Second slide"
                   />
@@ -110,7 +110,7 @@ const SignUp = () => {
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    style={{ height: "70vh",borderRadius:"5px" }}
+                    style={{ height: "70vh", borderRadius: "5px" }}
                     src={image2}
                     alt="Third slide"
                   />
@@ -119,7 +119,10 @@ const SignUp = () => {
             </div>
           </Col>
           <Col xs={12} sm={12} md={5} className="pe-5 ps-5  pt-5">
-            <div style={{ display: "flex" }} className="login_page_Container  pt-5">
+            <div
+              style={{ display: "flex" }}
+              className="login_page_Container  pt-5"
+            >
               <div className="login_right_content pe-5">
                 <div className="right-content py-2 px-2 mb-2">
                   <Row>
@@ -150,19 +153,25 @@ const SignUp = () => {
                   </Row>
                 </div>
                 <div className="right-content py-4 px-5">
-              <h4
-                className="d-flex justify-content-center mb-4"
-                style={{ fontWeight: "bold", fontFamily: "sans-serif",color:"white" }}
-              >
-                {`${stateCheck + " " + "Sign Up"}`}
-              </h4>
-              <div className="maincontent " >
-                <h5 style={{color:"white"}}>Already have an account ?</h5>
-                <Link to="/login" state={a} style={{color:"#F9D689"}}>
-                  Sign in!
-                </Link>
-              </div>
-              {/* {role === "User" ? (
+                  <h4
+                    className="d-flex justify-content-center mb-1"
+                    style={{
+                      fontWeight: "bold",
+                      fontFamily: "sans-serif",
+                      color: "white",
+                    }}
+                  >
+                    {`${stateCheck + " " + "Sign Up"}`}
+                  </h4>
+                  <div className="maincontent ">
+                    <h5 style={{ color: "white" }}>
+                      Already have an account ?
+                    </h5>
+                    <Link to="/login" state={a} style={{ color: "#F9D689" }}>
+                      Sign in!
+                    </Link>
+                  </div>
+                  {/* {role === "User" ? (
                 <UserSignup />
               ) : role === "Vendor" ? (
                 <VendorSignup />

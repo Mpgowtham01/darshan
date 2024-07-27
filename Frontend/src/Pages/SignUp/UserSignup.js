@@ -14,23 +14,13 @@ import {
   Toast,
   ToastContainer,
 } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Api from "../../Api";
-import { userLoginAction } from "../../Redux/Actions/UserAction";
-import "./../../components/Css/sass/SignUp.scss"
+import "./../../components/Css/sass/SignUp.scss";
+
 const StepFirstValidation = Yup.object().shape({
   Name: Yup.string().required("Name is required"),
-  selectCountry: Yup.string().required("Country Name is required"),
-  selectState: Yup.string().required("State Name is required"),
-  selectDistrict: Yup.string().required("District Name is required"),
-  selectCity: Yup.string().required("City Name is required"),
-});
-
-const StepSecondValidation = Yup.object().shape({
-  selectArea: Yup.string().required("Area Name is required"),
-  selectPin: Yup.string().required("Pin is required"),
   selectEmail: Yup.string()
     .email("invalid email address")
     .required("Email is required"),
@@ -44,26 +34,7 @@ const StepSecondValidation = Yup.object().shape({
 });
 
 const UserSignup = () => {
-  const [step, setstep] = useState("first");
   const [Name, setName] = useState("");
-  const [selectCountry, setselectCountry] = useState("");
-  const [countryList, setcountryList] = useState([]);
-  const [countryId, setCountryId] = useState("");
-  const [selectState, setselectState] = useState("");
-  const [stateId, setStateId] = useState("");
-  const [stateList, setstateList] = useState([]);
-  const [selectDistrict, setselectDistrict] = useState("");
-  const [districtList, setdistrictList] = useState([]);
-
-  const [districtId, setdistrictId] = useState([]);
-  const [selectCity, setselectCity] = useState("");
-  // const [cityId, setcountryId] = useState("");
-  const [CityId, setCityId] = useState([]);
-  const [cityList, setcityList] = useState([]);
-  const [selectArea, setselectArea] = useState("");
-  const [areaList, setareaList] = useState("");
-  const [AreaId, setAreaId] = useState("");
-  const [selectPin, setselectPin] = useState("");
   const [selectEmail, setselectEmail] = useState("");
   const [selectPhone, setselectPhone] = useState("");
   const [selectPassword, setselectPassword] = useState("");
@@ -78,59 +49,14 @@ const UserSignup = () => {
     setselectPasswordShown(!selectPasswordShown);
   };
 
-  useEffect(() => {
-    getCountry();
-  }, []);
-
-  const getCountry = async () => {
-    await Api.get("country/getAll").then((res) => {
-      const country = res.data;
-      setcountryList(country);
-    });
-  };
-
-  const getState = async (id) => {
-    await Api.get(`state/getState/${id}`).then((res) => {
-      const state = res.data;
-      setstateList(state);
-    });
-  };
-
-  const getDistrict = async (id) => {
-    await Api.get(`district/getdistrict/${id}`).then((res) => {
-      const district = res.data;
-      setdistrictList(district);
-    });
-  };
-  const getCity = async (id) => {
-    await Api.get(`city/getCity/${id}`).then((res) => {
-      const city = res.data;
-      console.log(res);
-      setcityList(city);
-    });
-  };
-  const getArea = async (id) => {
-    await Api.get(`area/getArea/${id}`).then((res) => {
-      const area_name = res.data;
-      setareaList(area_name);
-    });
-  };
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { Option } = Select;
 
   const [show, setShow] = useState(false);
 
   const submitForm = async () => {
     Api.post("userRegister/create", {
       UserName: Name,
-      CountryId: countryId,
-      StateId: stateId,
-      DistrictId: districtId,
-      CityId: CityId,
-      AreaId: AreaId,
-      Pincode: selectPin,
+
       EmailId: selectEmail,
       Phone: selectPhone,
       Password: selectPassword,
@@ -141,9 +67,11 @@ const UserSignup = () => {
           status: res.data?.status,
           message: res.data?.message,
         });
-        setTimeout(() => {
-          navigate("/login");
-        }, 700);
+        if (res.data?.status === "Success") {
+          setTimeout(() => {
+            navigate("/login");
+          }, 700);
+        }
       })
       .catch((err) => {
         console.log("error", err);
@@ -173,381 +101,54 @@ const UserSignup = () => {
         </Toast>
       </ToastContainer>
 
-      {step === "first" ? (
-        <div>
-          <Formik
-            initialValues={{
-              Name: Name,
-              selectCountry: selectCountry,
-              selectState: selectState,
-              selectDistrict: selectDistrict,
-              selectCity: selectCity,
-            }}
-            enableReinitialize
-            validationSchema={StepFirstValidation}
-            onSubmit={(values) => {
-              setstep("second");
-            }}
-          >
-            {({
-              touched,
-              errors,
-              values,
-              handleBlur,
-              handleChange,
-              handleSubmit,
-              setFieldValue,
-            }) => (
-              <div className="my-3">
-                <Col>
-                  <Form>
-                    <FormGroup
-                      style={{ flexDirection: "column", display: "flex" }}
-                      className="my-3 "
-                    >
-                      <label className="userSignUp_Input">
-                        Enter Name{" "}
-                        <span className="mb-0" style={{ color: "red" }}>
-                          *
-                        </span>
-                      </label>
-                      <input
-                        name="Name"
-                        allowclear="true"
-                        className="form-control Input shadow-none"
-                        placeholder="Enter Name*"
-                        onBlur={handleBlur("Name")}
-                        value={Name}
-                        onChange={(e) => {
-                          setName(e.target.value);
-                          setFieldValue("Name", e.target.value);
-                        }}
-                      />
-                      {touched.Name && errors.Name && (
-                        <p
-                          style={{
-                            color: "red",
-                            fontSize: 14,
-                            padding: 0,
-                            margin: 0,
-                          }}
-                        >
-                          {errors.Name}
-                        </p>
-                      )}
-                    </FormGroup>
-                    <FormGroup
-                      style={{ flexDirection: "column", display: "flex" }}
-                      className="my-3"
-                    >
-                      <label className="userSignUp_Input">
-                        Select Country{" "}
-                        <span className="mb-0" style={{ color: "red" }}>
-                          *
-                        </span>
-                      </label>
-                      <Select
-                        showSearch
-                        className=" shadow-none"
-                        name="selectCountry"
-                        required
-                        placeholder="Select Country Name*"
-                        allowclear="true"
-                        onBlur={handleBlur("selectCountry")}
-                        value={selectCountry || undefined}
-                        onChange={(e) => {
-                          const valueId = countryList?.find(
-                            (list) => list.country === e
-                          );
-                          setselectCountry(e);
-                          setCountryId(valueId.id);
-                          setFieldValue("selectCountry", e);
-                          getState(valueId.id);
-                        }}
-                      >
-                        {countryList?.map((list, i) => {
-                          // console.log(list)
-                          return (
-                            <Option value={list?.country} key={i}>
-                              {list?.country}
-                            </Option>
-                          );
-                        })}
-                      </Select>
-                      {touched.selectCountry && errors.selectCountry && (
-                        <p
-                          style={{
-                            color: "red",
-                            fontSize: 14,
-                            padding: 0,
-                            margin: 0,
-                          }}
-                        >
-                          {errors.selectCountry}
-                        </p>
-                      )}
-                    </FormGroup>
-                    <FormGroup
-                      style={{ flexDirection: "column", display: "flex" }}
-                      className="my-3"
-                    >
-                      <label className="userSignUp_Input">
-                        Select State{" "}
-                        <span className="mb-0" style={{ color: "red" }}>
-                          *
-                        </span>
-                      </label>
-                      <Select
-                        showSearch
-                        name="selectState"
-                        placeholder="Select State Name"
-                        allowclear="true"
-                        onBlur={handleBlur("selectState")}
-                        value={selectState || undefined}
-                        onChange={(e) => {
-                          console.log(e);
-                          const valueId = stateList?.find(
-                            (list) => list.state === e
-                          );
-                          setselectState(e);
-                          setStateId(valueId.id);
-                          getDistrict(valueId.id);
-                          setFieldValue("selectState", e);
-                        }}
-                      >
-                        {stateList?.map((list, i) => (
-                          <Option value={list?.state} key={i}>
-                            {list?.state}
-                          </Option>
-                        ))}
-                      </Select>
-                      {touched.selectState && errors.selectState && (
-                        <p
-                          style={{
-                            color: "red",
-                            fontSize: 14,
-                            padding: 0,
-                            margin: 0,
-                          }}
-                        >
-                          {errors.selectState}
-                        </p>
-                      )}
-                    </FormGroup>
-
-                    <FormGroup
-                      style={{ flexDirection: "column", display: "flex" }}
-                      className="my-3"
-                    >
-                      <label className="userSignUp_Input">
-                        Select District{" "}
-                        <span className="mb-0" style={{ color: "red" }}>
-                          *
-                        </span>
-                      </label>
-                      <Select
-                        showSearch
-                        name="selectDistrict"
-                        placeholder="Select District Name*"
-                        allowclear="true"
-                        className="district shadow-none"
-                        onBlur={handleBlur("selectDistrict")}
-                        value={selectDistrict || undefined}
-                        onChange={(e) => {
-                          console.log(e);
-                          const valueId = districtList?.find(
-                            (list) => list.district === e
-                          );
-                          setselectDistrict(e);
-                          setdistrictId(valueId.id);
-                          getCity(valueId.id);
-                          setFieldValue("selectDistrict", e);
-                        }}
-                      >
-                        {districtList?.map((list, i) => (
-                          <Option value={list?.district} key={i}>
-                            {" "}
-                            {list?.district}
-                          </Option>
-                        ))}
-                      </Select>
-                      {touched.selectDistrict && errors.selectDistrict && (
-                        <p
-                          style={{
-                            color: "red",
-                            fontSize: 14,
-                            padding: 0,
-                            margin: 0,
-                          }}
-                        >
-                          {errors.selectDistrict}
-                        </p>
-                      )}
-                    </FormGroup>
-
-                    <FormGroup
-                      style={{ flexDirection: "column", display: "flex" }}
-                      className="my-3"
-                    >
-                      <label className="userSignUp_Input">
-                        Select City{" "}
-                        <span className="mb-0" style={{ color: "red" }}>
-                          *
-                        </span>
-                      </label>
-                      <Select
-                        showSearch
-                        name="selectCity"
-                        placeholder="Select City Name*"
-                        allowclear="true"
-                        onBlur={handleBlur("selectCity")}
-                        value={selectCity || undefined}
-                        onChange={(e) => {
-                          console.log("wef", e);
-                          setFieldValue("selectCity", e);
-                          const valueId = cityList?.find(
-                            (list) => list.city === e
-                          );
-                          setselectCity(e);
-                          getArea(valueId.id);
-                          setCityId(valueId.id);
-                        }}
-                      >
-                        {cityList?.map((list, i) => (
-                          <Option value={list.city} key={i}>
-                            {list?.city}
-                          </Option>
-                        ))}
-                      </Select>
-                      {touched.selectCity && errors.selectCity && (
-                        <p
-                          style={{
-                            color: "red",
-                            fontSize: 14,
-                            padding: 0,
-                            margin: 0,
-                          }}
-                        >
-                          {errors.selectCity}
-                        </p>
-                      )}
-                    </FormGroup>
-                    <div className="d-flex justify-content-end mt-3">
-                      <Button
-                        className="signin-button shadow-none"
-                        variant="primary"
-                        onClick={handleSubmit}
-                        style={{ width: "35%" }}
-                      >
-                        Next
-                      </Button>
-                    </div>
-                  </Form>
-                </Col>
-              </div>
-            )}
-          </Formik>
-        </div>
-      ) : (
-        <div>
-          <Formik
-            initialValues={{
-              selectArea: selectArea,
-              selectPin: selectPin,
-              selectEmail: selectEmail,
-              selectPhone: selectPhone,
-              selectPassword: selectPassword,
-            }}
-            enableReinitialize
-            validationSchema={StepSecondValidation}
-            onSubmit={(values) => {
-              submitForm();
-              setShow(true);
-            }}
-          >
-            {({
-              touched,
-              errors,
-              values,
-              handleBlur,
-              handleChange,
-              handleSubmit,
-              setFieldValue,
-            }) => (
-              <div className="my-3">
+      <div>
+        <Formik
+          initialValues={{
+            Name: Name,
+            selectEmail: selectEmail,
+            selectPhone: selectPhone,
+            selectPassword: selectPassword,
+          }}
+          enableReinitialize
+          validationSchema={StepFirstValidation}
+          onSubmit={(values) => {
+            submitForm(values);
+          }}
+        >
+          {({
+            touched,
+            errors,
+            values,
+            handleBlur,
+            handleSubmit,
+            setFieldValue,
+          }) => (
+            <div className="my-3">
+              <Col>
                 <Form>
                   <FormGroup
                     style={{ flexDirection: "column", display: "flex" }}
                     className="my-3 "
                   >
                     <label className="userSignUp_Input">
-                      Area{" "}
-                      <span className="mb-0" style={{ color: "red" }}>
-                        *
-                      </span>
-                    </label>
-                    <Select
-                      showSearch
-                      name="selectArea"
-                      placeholder="Select Area Name*"
-                      allowclear="true"
-                      onBlur={handleBlur("selectArea")}
-                      value={selectArea || undefined}
-                      onChange={(e) => {
-                        // console.log("wef",e)
-                        setFieldValue("selectArea", e);
-                        const valueId = areaList?.find(
-                          (list) => list.area_name === e
-                        );
-
-                        console.log(valueId.area_id);
-                        setselectArea(e);
-                        setAreaId(valueId.area_id);
-                      }}
-                    >
-                      {areaList?.map((list, i) => (
-                        <Option value={list.area_name} key={i}>
-                          {list?.area_name}
-                        </Option>
-                      ))}
-                    </Select>
-                    {touched.selectArea && errors.selectArea && (
-                      <p
-                        style={{
-                          color: "red",
-                          fontSize: 14,
-                          padding: 0,
-                          margin: 0,
-                        }}
-                      >
-                        {errors.selectArea}
-                      </p>
-                    )}
-                  </FormGroup>
-                  <FormGroup
-                    style={{ flexDirection: "column", display: "flex" }}
-                    className="my-3"
-                  >
-                    <label className="userSignUp_Input">
-                      PinCode{" "}
+                      Enter Name{" "}
                       <span className="mb-0" style={{ color: "red" }}>
                         *
                       </span>
                     </label>
                     <input
-                      name="selectPin"
-                      className="form-control Userpincode shadow-none"
-                      required
-                      type="number"
-                      placeholder="Enter Pincode*"
-                      onBlur={handleBlur("selectPin")}
-                      value={selectPin}
+                      name="Name"
+                      allowclear="true"
+                      className="form-control Input shadow-none"
+                      placeholder="Enter Name*"
+                      onBlur={handleBlur("Name")}
+                      value={Name}
                       onChange={(e) => {
-                        setselectPin(e.target.value);
-                        setFieldValue("selectPin", e.target.value);
+                        setName(e.target.value);
+                        setFieldValue("Name", e.target.value);
                       }}
-                    ></input>
-                    {touched.selectPin && errors.selectPin && (
+                    />
+                    {touched.Name && errors.Name && (
                       <p
                         style={{
                           color: "red",
@@ -556,7 +157,7 @@ const UserSignup = () => {
                           margin: 0,
                         }}
                       >
-                        {errors.selectPin}
+                        {errors.Name}
                       </p>
                     )}
                   </FormGroup>
@@ -683,15 +284,7 @@ const UserSignup = () => {
                       </p>
                     )}
                   </FormGroup>
-                  <div className="submitButton mt-4">
-                    <Button
-                      className="signin-button shadow-none"
-                      variant="primary"
-                      onClick={() => setstep("first")}
-                      style={{ width: "35%" }}
-                    >
-                      Back
-                    </Button>
+                  <div className="d-flex justify-content-end mt-3">
                     <Button
                       className="signin-button shadow-none"
                       variant="primary"
@@ -702,11 +295,11 @@ const UserSignup = () => {
                     </Button>
                   </div>
                 </Form>
-              </div>
-            )}
-          </Formik>
-        </div>
-      )}
+              </Col>
+            </div>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };

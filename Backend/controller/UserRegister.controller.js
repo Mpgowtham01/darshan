@@ -56,9 +56,20 @@ exports.createUser = async (req, res) => {
   try {
     const hash = bcrypt.hashSync(password, 10);
     const sql = `INSERT INTO site_user(UserName,CountryId,StateId,DistrictId,CityId,AreaId,Pincode,EmailId,Phone,Password)
-        VALUES("${userName}","${countryId}","${stateId}","${districtId}","${cityId}","${areaId}","${pincode}","${emailId}","${phone}","${hash}")`;
-
-    dbConfig.query(sql, (err, rows, fields) => {
+        VALUES(?,?,?,?,?,?,?,?,?,?)`;
+    const values = [
+      userName,
+      countryId,
+      stateId,
+      districtId,
+      cityId,
+      areaId,
+      pincode,
+      emailId,
+      phone,
+      hash,
+    ];
+    dbConfig.query(sql, values, (err, rows, fields) => {
       console.log("Error", err);
 
       if (!err) {

@@ -18,9 +18,9 @@ function Index() {
   const navigate = useNavigate();
 
   const [logout, setLogout] = React.useState(false);
-//   useEffect(() => {
-//     if (!localStorage.getItem("USER_AUTH_STATE")) navigate("/login");
-//   }, [logout]);
+  //   useEffect(() => {
+  //     if (!localStorage.getItem("USER_AUTH_STATE")) navigate("/login");
+  //   }, [logout]);
   const logoutHandler = (e) => {
     e.preventDefault();
     localStorage.removeItem("USER_AUTH_STATE");
@@ -32,6 +32,7 @@ function Index() {
     localStorage.removeItem("regid");
     localStorage.removeItem("userId");
     localStorage.removeItem("companyName");
+    sessionStorage.removeItem("USER_AUTH_STATE");
 
     // setLogout(true);
   };
@@ -125,13 +126,13 @@ function Index() {
             </Card>
           </Col>
           <Col xs={12} md={8}>
-             {route === "profile" && <Myprofile />}
+            {route === "profile" && <Myprofile />}
             {route === "/vendordashboard/addcategory" && <Addcategory />}
             {route === "/vendordashboard/advertisement" && <Advertisement />}
             {route === "/vendordashboard/offer" && <Offer />}
             {route === "/vendordashboard/addlist" && <Addlist />}
             {route === "/vendordashboard/enquiry" && <Enquiry />}
-            {route === "packages" && <Packages />} 
+            {route === "packages" && <Packages />}
           </Col>
         </Row>
       </div>

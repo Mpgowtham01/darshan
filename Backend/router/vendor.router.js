@@ -45,15 +45,9 @@ Admin.post("/register", (req, res) => {
       }
 
       if (existingVendor.length > 0) {
-        const user = {
-          username: existingVendor[0].vendor_name,
-          id: existingVendor[0].id,
-        };
         return res.json({
-          status: "Success",
-          result: user,
-          message:
-            "Phone number already exists. Returning existing vendor data.",
+          status: "Failed",
+          message: "Phone number already exists. Registration not allowed.",
         });
       }
 

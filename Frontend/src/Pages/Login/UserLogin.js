@@ -96,11 +96,12 @@ const UserLogin = ({ role }) => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="my-2">
-          <label className="userSignUp_Input" htmlFor="phone">Phone Number</label>
+          <label className="userSignUp_Input" htmlFor="phone">
+            Phone Number
+          </label>
           <input
             className="form-control"
             placeholder="Enter your phone number"
-
             id="phone"
             {...register("Phone", {
               required: { value: true, message: "This is required" },
@@ -116,12 +117,13 @@ const UserLogin = ({ role }) => {
         </div>
 
         <div className="my-2">
-          <label className="userSignUp_Input" htmlFor="password">Password</label>;
+          <label className="userSignUp_Input" htmlFor="password">
+            Password
+          </label>
           <input
             className="form-control"
             id="password"
             placeholder="Enter your Password"
-
             // type="password"
             type={passwordShown ? "text" : "password"}
             {...register(

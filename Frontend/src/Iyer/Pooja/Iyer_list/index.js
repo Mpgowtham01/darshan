@@ -33,6 +33,10 @@ export default function Iyer_list(props) {
   const handleNavigate = (prefill) => {
     navigate("/boomyiyer/priestbooking", { state: { prefill } });
   };
+  const handleClickIyerpage = () => {
+    navigate("/iyer_LandingPage");
+  };
+  
   const { state: location } = useLocation();
   console.log('location', location)
   const navigate = useNavigate();
@@ -271,6 +275,7 @@ export default function Iyer_list(props) {
             <div className="row mt-4">
               {filtered.map((item) => (
                 <Col md={12} lg={4} sm={12} className="mt-2 me-3" key={item.iyerId}>
+                  <div >
                   <Card
                     className="guide-card-alignment"
                     style={{ height: "100%" }}
@@ -324,16 +329,14 @@ export default function Iyer_list(props) {
                         borderTop: "none",
                       }}
                     >
-                      <Button className="guide-profile-btn" onClick={handleShow}>
-                        {/* <Link
-                          to={`/boomyiyer/priestbooking`}
-                          className="view-profile-link"
-                        > */}
-                          Book Iyer
-                        {/* </Link> */}
+                      <Button className="guide-profile-btn" onClick={handleClickIyerpage}>
+                       
+                          View Iyer
+                      
                       </Button>
                     </Card.Footer>
                   </Card>
+                  </div>
                 </Col>
               ))}
             </div>

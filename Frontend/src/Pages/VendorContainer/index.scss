@@ -217,8 +217,8 @@
 }
 .inputcolumn-ourProfile {
   border-radius: 8px;
-  width: 51%;
-  height: 40px !important;
+  width: 90% !important;
+  height: 40px ;
   margin-bottom: 5%;
   padding: 5px !important;
   font-size: 1rem !important;
@@ -226,9 +226,14 @@
   border-radius: 7px !important;
   outline: none !important;
 }
+.vendorpage_labelCss{
+  font-size: 15px;
+  margin-bottom: 5px;
+  font-weight: 450;
+}
 .inputcolumn_drp {
   border-radius: 8px;
-  width: 71%;
+  width: 90%;
   height: 35px;
   border: #ced4da !important;
 
@@ -386,6 +391,11 @@
 /* .button1:hover {
       background-color: none !important;
     } */
+     .ourProfile_Heading_div{
+      font-size: 18px;
+      font-weight: 600;
+      display: flex;
+     }
 .packagecard {
   height: 50vh;
   width: 70%;

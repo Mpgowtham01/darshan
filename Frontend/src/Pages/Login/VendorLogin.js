@@ -86,34 +86,36 @@ const VendorLogin = () => {
           sessionStorage.setItem("USER_AUTH_STATE", true);
         }
       })
-      .catch((err) =>
+      .catch((err) => {
+        console.log("wwwwwww", err);
         setRegisterResponse({
-          status: err.response.data?.data?.status,
-          message: err.response.data?.data?.message,
-        })
-      );
+          status: err.response.data?.status,
+          message: err.response.data?.message,
+        });
+      });
   };
   const showToast = () => {
     setShow(false);
   };
   return (
     <div>
-      {/* <ToastContainer position="top-end" style={{ zIndex: 100000 }}>
+      <ToastContainer position="top-end" style={{ zIndex: 100000 }}>
         <Toast onClose={() => showToast()} show={show} delay={3000} autohide>
           <Toast.Header>
             <strong
               className={`me-auto text-${
                 registerResponse?.status === "Success" ? "success" : "danger"
-              }`}>
+              }`}
+            >
               {registerResponse?.status}
             </strong>
           </Toast.Header>
-          <Toast.Body>{registerResponse?.message} </Toast.Body> */}
-      {/* <div className="d-flex justify-content-center mb-2 w-100">
+          <Toast.Body>{registerResponse?.message} </Toast.Body>
+          {/* <div className="d-flex justify-content-center mb-2 w-100">
         <Button onClick={() => navigate(-1)}>OK</Button>
       </div> */}
-      {/* </Toast>
-      </ToastContainer> */}
+        </Toast>
+      </ToastContainer>
       <Formik
         enableReinitialize={true}
         initialValues={{
