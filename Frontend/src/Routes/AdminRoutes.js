@@ -7,8 +7,8 @@ import CountryList from "../Pages/Admin/AddList/CountryList";
 import DistrictList from "../Pages/Admin/AddList/DistrictList";
 import Festival from "../Pages/Admin/AddList/FestivalList";
 import Grouptable from "../Pages/Admin/AddList/GrouptableList";
-import  SubGroup from "../Pages/Admin/CreateFields/SubGroup.js"
-import  SubGroupList from "../Pages/Admin/AddList/subGroupList"
+import SubGroup from "../Pages/Admin/CreateFields/SubGroup.js";
+import SubGroupList from "../Pages/Admin/AddList/subGroupList";
 
 import MaingodList from "../Pages/Admin/AddList/MaingodList";
 import PariharamList from "../Pages/Admin/AddList/PariharamList";
@@ -38,16 +38,14 @@ import CreateSubCategories from "../Pages/Admin/CreateFields/CreateSubCategories
 import TrainingForm from "../Pages/Admin/CreateFields/CreateTraining";
 import CreateVendorCategory from "../Pages/Admin/CreateFields/CreateVendorCategory";
 import CreateVendorSubCategory from "../Pages/Admin/CreateFields/CreateVendorSubCategory";
-import IyerList from "../Pages/Admin/IyarList.js";
 import CreateFunctionInsideTheTemple from "../Pages/Admin/Iyer/FunctionInsideTemples/CreateInsideFunction";
 import InsideTempleFunctions from "../Pages/Admin/Iyer/FunctionInsideTemples/InsideTempleFunction";
 import CreateFunctionOutsideTheTemple from "../Pages/Admin/Iyer/FunctionOutsideTemple/CreateOutsideFunction";
 import OutsideTempleFunction from "../Pages/Admin/Iyer/FunctionOutsideTemple/OutsideTempleFunction";
 import IyerAssignList from "../Pages/Admin/Iyer/IyerAssignList";
 import IyerBookingList from "../Pages/Admin/Iyer/IyerBookingDetails";
-import RoomBooking from "../Pages/Admin/RoomBooking/index.jsx"
-import YatraBookingTable from "../Pages/Admin/YatraBookingDetais/index.jsx"
-
+import RoomBooking from "../Pages/Admin/RoomBooking/index.jsx";
+import YatraBookingTable from "../Pages/Admin/YatraBookingDetais/index.jsx";
 
 import IyerConfirmedList from "../Pages/Admin/Iyer/IyerConfirmedList";
 import IyerDetailsList from "../Pages/Admin/Iyer/IyerDetailsList";
@@ -79,9 +77,12 @@ import Eventfrom from "../Pages/Event/Eventfrom/Eventfrom";
 import EventList from "../Pages/Event/EventList";
 import EventType from "../Pages/Event/EventType";
 import ForgetPassword from "../Pages/ForgetPassword";
-import PriestApprovalList from "../Pages/Approval/PriestList/index.jsx"
+import PriestApprovalList from "../Pages/Approval/PriestList/index.jsx";
 import YatraBookingPackages from "../Pages/Admin/YatraBookingDetais/YatraBookingPackages.js";
 import AddYatraBooking from "../Pages/Admin/YatraBookingDetais/AddYatraBooking.js";
+
+import AddNewTempleList from "../Pages/Admin/AddList/AddnewTempleList.js"
+import CreateAddNewTemple from "../Pages/Admin/CreateFields/AddNewTemple.js";
 export const AdminRoutes = [
   {
     path: "",
@@ -125,7 +126,11 @@ export const AdminRoutes = [
     name: "CreateAmenity",
     element: <CreateAmenity />,
   },
-
+  {
+    path: "addNewTempleList",
+    name: "addNewTempleList",
+    element: <AddNewTempleList />,
+  },
   {
     path: "pariharam",
     name: "PariharamList",
@@ -135,6 +140,11 @@ export const AdminRoutes = [
     path: "pariharamForm",
     name: "CreatePariharam",
     element: <CreatePariharam />,
+  },
+  {
+    path: "addNewTemple",
+    name: "AddNewTemple",
+    element: <CreateAddNewTemple/>,
   },
 
   {
@@ -169,14 +179,13 @@ export const AdminRoutes = [
   {
     path: "mainCategoriesForm",
     name: "MainCategoriesForm",
-    element: <CreateCategories/>,
+    element: <CreateCategories />,
   },
   {
     path: "subCategoriesForm",
     name: "SubCategoriesForm",
-    element: <CreateSubCategories/>,
+    element: <CreateSubCategories />,
   },
-
 
   {
     path: "country",
@@ -357,9 +366,9 @@ export const AdminRoutes = [
   },
   {
     path: "/admin/yatra-booking/yatraform",
-    name:"YatraForm",
-    element: <AddYatraBooking/>,
-    },
+    name: "YatraForm",
+    element: <AddYatraBooking />,
+  },
   {
     path: "/admin/priest-details",
     name: "IyerDetails",
@@ -568,6 +577,6 @@ export const AdminRoutes = [
   {
     path: "/admin/Trainer-approval",
     name: "TrainerList",
-    element: <TrainerList />
-  }
+    element: <TrainerList />,
+  },
 ];

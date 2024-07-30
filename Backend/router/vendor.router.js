@@ -16,17 +16,9 @@ Admin.post("/register", (req, res) => {
     vendorType,
     vendor_name,
     business_name,
-    country_id,
-    state_id,
-    district_id,
-    city_id,
-    area_id,
-    address,
-    pincode,
     phone_number,
     password,
     is_active = false,
-    post = "0",
     isApproved = 0,
     rejectReasonByAdmin = "",
   } = req.body;
@@ -52,23 +44,15 @@ Admin.post("/register", (req, res) => {
       }
 
       const hash = bcrypt.hashSync(password, 10);
-      const sql = `INSERT INTO vendors (vendor_name, business_name, country_id, state_id, district_id, city_id, area_id, address, pincode, phone_number, password, is_active, post, isApproved, rejectReasonByAdmin, vendorType)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+      const sql = `INSERT INTO vendors (vendor_name, business_name, phone_number, password, is_active,  isApproved, rejectReasonByAdmin, vendorType)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
       const values = [
         vendor_name,
         business_name,
-        country_id,
-        state_id,
-        district_id,
-        city_id,
-        area_id,
-        address,
-        pincode,
         phone_number,
         hash,
         is_active,
-        post,
         isApproved,
         rejectReasonByAdmin,
         vendorType,

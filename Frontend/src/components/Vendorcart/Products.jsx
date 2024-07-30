@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import Skeleton from "react-loading-skeleton";
@@ -10,12 +10,10 @@ import { CartItem } from "./FakeCartItem";
 import "../Css/sass/CartPage.scss";
 
 const Products = () => {
-  const [data, setData] = useState([]);
   const [filter, setFilter] = useState(CartItem);
   const [loading, setLoading] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
 
-  let componentMounted = true;
   const dispatch = useDispatch();
 
   const addProduct = (product) => {

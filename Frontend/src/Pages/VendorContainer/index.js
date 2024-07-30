@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Row, Card, Col, Button, Dropdown, NavDropdown } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Card, Col, NavDropdown } from "react-bootstrap";
 // import FerilNew1 from "../../../src/Images/FerilNew1.png";
 import "./index.scss";
-import Table from "react-bootstrap/Table";
+// import Table from "react-bootstrap/Table";
 import Myprofile from "./Myprofile";
-import { Link, useNavigate } from "react-router-dom";
 import Addcategory from "./Addcategory";
 import Advertisement from "./Advertisement";
 import Offer from "./Offer";
 import Addlist from "./Addlist";
 import Enquiry from "./Enquiry";
 import Packages from "./Packages";
+import { useSelector } from "react-redux";
 
 function Index() {
   const [route, setRoute] = useState("profile");
-  const [data, setData] = useState([]);
-  const navigate = useNavigate();
 
-  const [logout, setLogout] = React.useState(false);
-  //   useEffect(() => {
-  //     if (!localStorage.getItem("USER_AUTH_STATE")) navigate("/login");
-  //   }, [logout]);
   const logoutHandler = (e) => {
     e.preventDefault();
     localStorage.removeItem("USER_AUTH_STATE");
@@ -33,9 +27,11 @@ function Index() {
     localStorage.removeItem("userId");
     localStorage.removeItem("companyName");
     sessionStorage.removeItem("USER_AUTH_STATE");
-
-    // setLogout(true);
   };
+
+  const state = localStorage.getItem("Role");
+  const [userType, setUserType] = useState(state);
+
   return (
     <div>
       <div>
@@ -57,66 +53,87 @@ function Index() {
                     My Home
                   </h6>
                   <ul className="myhome_list">
-                    <li className="mt-2" onClick={() => setRoute("profile")}>
-                      {" "}
-                      My Profile
-                    </li>
-                    <li className="mt-2">
-                      <NavDropdown
-                        id="nav-dropdown-dark-example"
-                        title="Category"
-                        menuVariant="dark"
-                      >
-                        <NavDropdown.Item
-                          onClick={() =>
-                            setRoute("/vendordashboard/addcategory")
-                          }
-                          style={{ color: "white" }}
+                    {userType === "Iyer" && (
+                      <>
+                        <li
+                          className="mt-2"
+                          onClick={() => setRoute("profile")}
                         >
-                          Add Category
-                        </NavDropdown.Item>
+                          My Profile
+                        </li>
+                      </>
+                    )}
+                    {userType === "Vendor" && (
+                      <>
+                        <li
+                          className="mt-2"
+                          onClick={() => setRoute("profileVendor")}
+                        >
+                          My Profile
+                        </li>
+                        <li className="mt-2">
+                          <NavDropdown
+                            id="nav-dropdown-dark-example"
+                            title="Category"
+                            menuVariant="dark"
+                          >
+                            <NavDropdown.Item
+                              onClick={() =>
+                                setRoute("/vendordashboard/addcategory")
+                              }
+                              style={{ color: "white" }}
+                            >
+                              Add Category
+                            </NavDropdown.Item>
+                            <NavDropdown.Item
+                              onClick={() =>
+                                setRoute("/vendordashboard/addlist")
+                              }
+                              style={{ color: "white" }}
+                            >
+                              Add List
+                            </NavDropdown.Item>
+                          </NavDropdown>
+                        </li>
 
-                        <NavDropdown.Item
-                          onClick={() => setRoute("/vendordashboard/addlist")}
-                          style={{ color: "white" }}
+                        <li className="mt-2">
+                          <NavDropdown
+                            id="nav-dropdown-dark-example"
+                            title="Business"
+                            menuVariant="dark"
+                          >
+                            <NavDropdown.Item
+                              onClick={() =>
+                                setRoute("/vendordashboard/advertisement")
+                              }
+                              eventKey="4.1"
+                            >
+                              Advertisement
+                            </NavDropdown.Item>
+                            <NavDropdown.Item
+                              onClick={() => setRoute("/vendordashboard/offer")}
+                              eventKey="4.1"
+                            >
+                              Offer
+                            </NavDropdown.Item>
+                            <NavDropdown.Item
+                              onClick={() =>
+                                setRoute("/vendordashboard/enquiry")
+                              }
+                              eventKey="4.1"
+                            >
+                              Enquiry
+                            </NavDropdown.Item>
+                          </NavDropdown>
+                        </li>
+                        <li
+                          className="mt-2"
+                          onClick={() => setRoute("packages")}
                         >
-                          Addlist
-                        </NavDropdown.Item>
-                      </NavDropdown>
-                    </li>
-
-                    <li className="mt-2">
-                      <NavDropdown
-                        id="nav-dropdown-dark-example"
-                        title="Business"
-                        menuVariant="dark"
-                      >
-                        <NavDropdown.Item
-                          onClick={() =>
-                            setRoute("/vendordashboard/advertisement")
-                          }
-                          eventKey="4.1"
-                        >
-                          Advertisement
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          onClick={() => setRoute("/vendordashboard/offer")}
-                          eventKey="4.1"
-                        >
-                          Offer
-                        </NavDropdown.Item>
-                        <NavDropdown.Item
-                          onClick={() => setRoute("/vendordashboard/enquiry")}
-                          eventKey="4.1"
-                        >
-                          Enquiry
-                        </NavDropdown.Item>
-                      </NavDropdown>
-                    </li>
-                    {/* <li className='mt-2'>Offer</li>*/}
-                    <li className="mt-2" onClick={() => setRoute("packages")}>
-                      Packages
-                    </li>
+                          Packages
+                        </li>
+                      </>
+                    )}
                     <li className="mt-2" onClick={logoutHandler}>
                       Logout
                     </li>

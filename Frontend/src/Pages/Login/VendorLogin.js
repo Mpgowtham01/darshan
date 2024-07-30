@@ -11,7 +11,6 @@ import { Formik, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { userLoginAction } from "../../Redux/Actions/UserAction";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // style
@@ -20,6 +19,7 @@ import "../../components/Css/sass/Login.scss";
 // Api
 import Api from "../../Api";
 import ForgotPasswordLink from "./ForgotPasswordLink";
+import { userLogin } from "../../components/Redux_Toolkit/LoginSlice";
 
 // Validation
 const LoginSchema = Yup.object().shape({
@@ -77,17 +77,16 @@ const VendorLogin = () => {
             id: userId,
           };
           localStorage.setItem("USER_AUTH_STATE", true);
-          localStorage.setItem("Role", "vendor");
+          localStorage.setItem("Role", role);
           localStorage.setItem("id", response.data.data.user.vendor_id);
           localStorage.setItem("vendor", response.data.data.user.vendor_name);
 
-          dispatch(userLoginAction(data));
+          dispatch(userLogin(data));
           navigate("/vendor");
           sessionStorage.setItem("USER_AUTH_STATE", true);
         }
       })
       .catch((err) => {
-        console.log("wwwwwww", err);
         setRegisterResponse({
           status: err.response.data?.status,
           message: err.response.data?.message,

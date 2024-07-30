@@ -3,6 +3,7 @@ import allTempleSlice from "./allTempleSlice";
 import authSlice from "./authSlice";
 import blogDetailsSlice from "./blogDetailsSlice";
 import CartState from "./CartSlice";
+import LoginSlice from "./LoginSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     blogDetails: blogDetailsSlice,
     authState: authSlice,
     cart: CartState,
+    LoginSlice: LoginSlice,
   },
 
   devTools: true,

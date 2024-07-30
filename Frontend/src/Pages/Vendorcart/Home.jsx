@@ -1,12 +1,13 @@
-import { Navbar, Main, Product, Footer } from "../../components/Vendorcart";
+import Layout from "../../components/Layout";
+import { Main, Product } from "../../components/Vendorcart";
 
 function Home() {
   return (
     <>
-      <Navbar />
-      <Main />
-      <Product />
-      <Footer />
+      <Layout>
+        <Main />
+        <Product />
+      </Layout>
     </>
   );
 }

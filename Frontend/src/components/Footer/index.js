@@ -28,22 +28,25 @@ function Footer() {
                 <h3>Contact Us</h3>
                 <p>
                   <FiPhoneCall />
-                  &nbsp;&nbsp;9876543210
+                  &nbsp;&nbsp;9606518855
                 </p>
                 <p>
                   <FiInfo />
-                  &nbsp;&nbsp;info@example.com
+                  &nbsp;&nbsp;hello@cognextech.com
                 </p>
                 <p>
                   <PiAddressBookLight />
-                  &nbsp;&nbsp;Temple 1: 777/ed Ipum Road Venu
+                  &nbsp;&nbsp;3/76 Rajiv Gandhi salai,OMR,Semmancheri,
+                  <br/>
+                  chennai-600119
                 </p>
               </div>
             </Col>
             <Col md={8} xs={12}>
               <div className="about-us-div">
                 <h3>
-                  <img src={TempleIcon}></img>&nbsp;Dharshan Journey
+                  <img src={TempleIcon} alt="templeicon"></img>&nbsp;Dharshan
+                  Journey
                 </h3>
                 <p>
                   Discover the rich cultural and spiritual heritage of India
@@ -75,7 +78,7 @@ function Footer() {
                   <h3>Stay Connected</h3>
                   <p> Subscribe to our Newsletter & stay updated</p>
                   <p>
-                    <img src={temple}></img>&nbsp;&nbsp;{" "}
+                    <img src={temple} alt="temple"></img>&nbsp;&nbsp;{" "}
                     <b> Dharshan Journey </b>
                   </p>
                   <input
@@ -105,7 +108,7 @@ function Footer() {
           <Row>
             <Col md={18}>
               <p className="final-footer-ptag">
-                <img src={temple}></img> &nbsp;&nbsp;Copyright{" "}
+                <img src={temple} alt="temple1"></img> &nbsp;&nbsp;Copyright
                 <AiOutlineCopyrightCircle /> 2024 Aroganam
               </p>
             </Col>

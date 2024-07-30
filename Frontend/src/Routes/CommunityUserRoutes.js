@@ -4,8 +4,8 @@ import Matrimonial from "../Pages/Admin/CommunityUser/CommunityPages/Matrimonial
 import Notification from "../Pages/Admin/CommunityUser/CommunityPages/Notification";
 import User from "../Pages/Admin/CommunityUser/CommunityPages/User";
 import AddFamily from "../Pages/Admin/CommunityUser/CommunityPages/AddFamily";
-import AddUser from "../Pages/Admin/kulateyvam/Addkulateyamdashboard/AddUser";
 import AddUserFam from "../Pages/Admin/CommunityUser/CommunityPages/AddUserFam.js";
+
 export const CommunityUserRoutes = [
   {
     path: "",
@@ -17,7 +17,7 @@ export const CommunityUserRoutes = [
     name: "Profile",
     element: <User />,
   },
- 
+
   {
     path: "/communityUser/:groupName/notification",
     name: "Notification",

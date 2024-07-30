@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import temple from "../../components/Images/darshanJourneylogo.jpg";
 import { HiUserCircle } from "react-icons/hi";
 import { Popover } from "antd";
@@ -9,7 +9,6 @@ import "../Css/sass/Navbar.scss";
 
 const CustomNav = ({ handleShow }) => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const role = localStorage.getItem("Role");
   const groupName = localStorage.getItem("Group_Name");
@@ -58,6 +57,12 @@ const CustomNav = ({ handleShow }) => {
               </Nav.Link>
               <Nav.Link className="mx-3">
                 <NavLink to="/bookmyiyer/contact-us">Contact Us</NavLink>
+              </Nav.Link>
+              <Nav.Link className="mx-3">
+                <NavLink to="/dilapidatedTemples">Decaying temples</NavLink>
+              </Nav.Link>
+              <Nav.Link className="mx-3">
+                <NavLink to="/product">Product</NavLink>
               </Nav.Link>
             </Nav>
             <Nav>
@@ -115,8 +120,7 @@ const CustomNav = ({ handleShow }) => {
 
 export default React.memo(CustomNav);
 
-{
-  /* <NavDropdown
+/* <NavDropdown
                 title={
                   <span className="nav-dropdown-title">Darshan Service</span>
                 }
@@ -139,10 +143,8 @@ export default React.memo(CustomNav);
                   Guide
                 </NavDropdown.Item>
               </NavDropdown> */
-}
 
-{
-  /* <NavDropdown
+/* <NavDropdown
                 title={
                   <span className="nav-dropdown-title">Vendor Service</span>
                 }
@@ -156,13 +158,10 @@ export default React.memo(CustomNav);
                   Room Booking
                 </NavDropdown.Item>
               </NavDropdown> */
-}
 
-{
-  /* <Nav.Link>
+/* <Nav.Link>
                 <NavLink to="/temple-blogs">Blog</NavLink>
               </Nav.Link>
               <Nav.Link>
                 <NavLink to="/events-list">Events</NavLink>
               </Nav.Link> */
-}

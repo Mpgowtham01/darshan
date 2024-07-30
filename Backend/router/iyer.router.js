@@ -8,6 +8,9 @@ const {
 const iyerController = require("../controller/iyer.Controller");
 const auth = require("../middleware/auth");
 
+//new
+const iyercreateController = require("../controller/IyerProfile.controller");
+
 router.post("/register", async (req, res, next) => {
   try {
     let result = await iyerController.register(req);
@@ -73,12 +76,54 @@ router.get("/getiyerlist/:cityid/:function_id", async (req, res) => {
 // approve api
 router.get("/iyerApprove", (req, res) => {
   try {
-    let result =  iyerController.iyerApproveId(req);
+    let result = iyerController.iyerApproveId(req);
     res.send(result);
   } catch (err) {
     res.status(500).send(err);
   }
 });
 
+///new create
+
+router.post("/create", async (req, res, next) => {
+  try {
+    let result = await iyercreateController.create(req);
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+router.get("/getAllIyerlist", async (req, res) => {
+  try {
+    const result = await iyercreateController.getAllIyer();
+    res.status(result.status).json(result.data);
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(error.status || 500).json({ message: error.message });
+  }
+});
+
+router.get("/getbyid/:id", async (req, res) => {
+  const vendorId = req.params.id;
+  try {
+    const result = await iyercreateController.getById(vendorId);
+    res.status(result.status).json(result.data || { message: result.message });
+  } catch (error) {
+    console.error("Server error:", error); // Log errors
+    res.status(error.status || 500).json({ message: error.message });
+  }
+});
+
+router.put("/updateIyer/:id", async (req, res) => {
+  console.log("object");
+  try {
+    let result = await iyercreateController.update(req);
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+});
 
 module.exports = router;

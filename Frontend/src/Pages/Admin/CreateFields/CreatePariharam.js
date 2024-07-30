@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
@@ -6,12 +7,12 @@ import "primeicons/primeicons.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.css";
 import { Toast } from "primereact/toast";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Col, Container, Row } from "react-bootstrap";
+import Api from "../../../Api";
 
 export default function CreatePariharam() {
   const { state: locationState } = useLocation();
-
   const navigate = useNavigate();
   const toast = useRef(null);
 
@@ -35,19 +36,35 @@ export default function CreatePariharam() {
   };
 
   const onSubmit = async (data, e) => {
+    console.log("Submitted", data.pariharamImage);
+
+    const formData = new FormData();
+    formData.append("pariharam_name", data.pariharam_name);
+    formData.append("description", data.description);
+    formData.append("manthiram", data.manthiram);
+    formData.append("pariharamImage", data.pariharamImage[0]); 
+
     try {
       if (locationState) {
-        //update
         await axios.put(
           `${process.env.REACT_APP_DEV_BASE_URL}/pariharams/update/${locationState.pariharam_id}`,
-          data
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         displayToaster();
       } else {
-        //create
-        await axios.post(
+        await Api.post(
           `${process.env.REACT_APP_DEV_BASE_URL}/pariharams/create`,
-          data
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         displayToaster();
       }
@@ -55,7 +72,7 @@ export default function CreatePariharam() {
       toast.current.show({
         severity: "error",
         summary: "Error",
-        detail: "Something went wrong,please try again!!!",
+        detail: "Something went wrong, please try again!!!",
         life: 3000,
       });
     }
@@ -71,31 +88,93 @@ export default function CreatePariharam() {
         <section>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3">
-              <Form.Label className="font-title">Pariharam Name</Form.Label>
-              <div className="field-style-2">
-                <Form.Control
-                  type="text"
-                  name="name"
-                  {...register("pariharam_name", { required: true })}
-                  placeholder=""
-                />
-                <Form.Text style={{ color: "red" }}>
-                  {errors.pariharam_name && "This field is required"}
-                </Form.Text>
-              </div>
+              <Row>
+                <Col lg={6}>
+                  <Form.Label className="font-title">Pariharam Name</Form.Label>
+                  <div className="field-style-2">
+                    <Form.Control
+                      type="text"
+                      name="name"
+                      {...register("pariharam_name", { required: true })}
+                      placeholder=""
+                    />
+                    <Form.Text style={{ color: "red" }}>
+                      {errors.pariharam_name && "This field is required"}
+                    </Form.Text>
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  <Form.Label className="font-title">Description</Form.Label>
+
+                  <div className="field-style-2">
+                    <Form.Control
+                      type="text"
+                      name="description"
+                      {...register("description", { required: true })}
+                      placeholder=""
+                    />
+                    <Form.Text style={{ color: "red" }}>
+                      {errors.description && "This field is required"}
+                    </Form.Text>
+                  </div>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col lg={6}>
+                  <Form.Label className="font-title">Manthiram</Form.Label>
+                  <div className="field-style-2">
+                    <Form.Control
+                      type="text"
+                      name="manthiram"
+                      {...register("manthiram", { required: true })}
+                      placeholder=""
+                    />
+                    <Form.Text style={{ color: "red" }}>
+                      {errors.manthiram && "This field is required"}
+                    </Form.Text>
+                  </div>
+                </Col>
+                <Col lg={6}>
+                  {" "}
+                  <Form.Label className="font-title">Image</Form.Label>
+                  <div className="field-style-2">
+                    <Form.Control
+                      type="file"
+                      name="pariharamImage"
+                      {...register("pariharamImage", { required: true })}
+                      placeholder=""
+                    />
+                    <Form.Text style={{ color: "red" }}>
+                      {errors.pariharamImage && "This field is required"}
+                    </Form.Text>
+                  </div>
+                </Col>
+              </Row>
             </Form.Group>
 
             <div className="d-flex justify-content-end py-3">
-              <button type="submit" className="me-4 customBtn dark-text small" variant="primary">
+              <button
+                type="submit"
+                className="me-4 customBtn dark-text small"
+                variant="primary"
+              >
                 Submit
               </button>
-              <button className="customBtn small bg" type="reset" onClick={() => { navigate("/admin/pariharam"); }}>
+              <button
+                className="customBtn small bg"
+                type="reset"
+                onClick={() => {
+                  navigate("/admin/pariharam");
+                }}
+              >
                 Cancel
               </button>
             </div>
           </Form>
         </section>
       </Container>
-    </div >
+    </div>
   );
 }
+

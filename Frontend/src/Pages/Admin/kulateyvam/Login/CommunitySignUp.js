@@ -113,6 +113,7 @@ const CommunitySignUp = () => {
       .get(`${process.env.REACT_APP_DEV_BASE_URL}/country/getAll`)
       .then((res) => {
         const country = res.data;
+        console.log("res :>> ", res);
         setcountryList(country);
       });
   };
@@ -152,8 +153,7 @@ const CommunitySignUp = () => {
       });
   };
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const { Option } = Select;
 
   const [show, setShow] = useState(false);

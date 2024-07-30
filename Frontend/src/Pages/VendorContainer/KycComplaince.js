@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { Container, Row, Col, button, Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, button, Card, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-// import "./kycComplaince.scss";
-// import "../../Pages/Employer/OurProfile/KycComplaince/kycComplaince.css";
 import Api from "../../Api";
 
 function Kycvendor() {
@@ -11,43 +9,87 @@ function Kycvendor() {
     handleSubmit,
     formState: { errors },
     getValues,
+    reset,
   } = useForm();
 
-  const [PanCard, setPanCard] = useState({});
-  const [AddressProof, setAddressproof] = useState({});
-  const userId = localStorage.getItem("userId");
+  const [selectImage, setSelectImage] = useState(null);
+
+  const setImage = (file) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setSelectImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImage(file);
+    }
+  };
+
+  useEffect(() => {
+    getValue();
+  }, []);
+
+  const getValue = async () => {
+    try {
+      const res = await Api.get(`/iyer/getbyid/${7}`);
+      const data = res.data;
+      setSelectImage(data.PanOrAdharUpload);
+
+      reset({
+        pancardNumber: data.PanCardNumber,
+        gstNumber: data.GSTNumber,
+        accountno: data.AccountNumber,
+        ifcecode: data.IFSCCode,
+        bankname: data.BankName,
+        branch: data.branch,
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const handleFormSubmit = async () => {
     const Details = {
-      pancardNumber: getValues().pancardNumber,
-      aadharcardNumber: getValues().aadharcardNumber,
-      gstNumber: getValues().gstNumber,
-      addressProof: getValues().addressProof,
-      // AddressProof:getValues().AddressProof,
+      PanCardNumber: getValues().pancardNumber,
+      GSTNumber: getValues().gstNumber,
+      AccountNumber: getValues().accountno,
+      IFSCCode: getValues().ifcecode,
+      BankName: getValues().bankname,
+      branch: getValues().branch,
+      PanOrAdharUpload: "",
+      vendorId: 7,
     };
-    console.log("first", Details);
+
     const data = new FormData();
-    data.append("AddressProof", getValues().AddressProof[0]);
-    //  data.append("AddressProof", getValues().addressProof[0]);
-    await Api.put(`/vendor/addressproofImage/${userId}`, data).then(
-      async (res) => {
-        if (res.status == 201) {
-          Details.AddressProof = res.data.path;
-          //  Details.addressProof = res.data.path;
-          await Api.put(`/vendor/vendorput/${userId}`, Details).then((resp) => {
-            //  localStorage.setItem("personalId", resp.data.data._id);
-          });
-        }
+    data.append("file", selectImage);
+    data.append("upload_preset", "darshan");
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dzblzw7ll/image/upload",
+      {
+        method: "POST",
+        body: data,
       }
     );
+    const cloudinaryData = await response.json();
+    Details.PanOrAdharUpload = cloudinaryData.secure_url;
+
+    await Api.put(`/iyer/updateIyer/${21}`, Details).then(async (res) => {
+      console.log("res :>> ", res);
+    });
   };
 
   return (
     <div>
-      {/* <Card className="form_colum"> */}
-
       <Container>
-        <div  className="ourProfileParentdiv" style={{ backgroundColor: "white", padding: "20px" }}>
+        <div
+          className="ourProfileParentdiv"
+          style={{ backgroundColor: "white", padding: "10px 20px" }}
+        >
           <center>
             <h4 className="pages-title mt-3">KYC Complaince</h4>
             <br />
@@ -55,10 +97,10 @@ function Kycvendor() {
               style={{
                 backgroundColor: "#fccc55",
                 padding: "10px",
-                width:"80%",fontSize:"18px"
+                width: "80%",
+                fontSize: "18px",
               }}
             >
-              {" "}
               Your Company details are required to meet kyc Complaince
             </p>
             <br />
@@ -79,20 +121,7 @@ function Kycvendor() {
                 )}
               </Col>
             </Row>
-            <Row className="kycRow_Container">
-              <Col sm={12} lg={4}>
-                <label>AadharCard Number: </label>
-              </Col>
-              <Col sm={12} lg={6}>
-                <input
-                  {...register("aadharcardNumber", { required: true })}
-                  className="inputcolumn-ourProfile"
-                />
-                {errors.aadharcardNumber && (
-                  <p className="text-danger">AadharCard number is required</p>
-                )}
-              </Col>
-            </Row>
+
             <Row className="kycRow_Container">
               <Col sm={12} lg={4}>
                 <label>GST Number: </label>
@@ -107,7 +136,7 @@ function Kycvendor() {
                 )}
               </Col>
             </Row>
-          
+
             <Row className="kycRow_Container">
               <Col sm={12} lg={4}>
                 <label>Pan or Adhar Upload Anyone: </label>
@@ -117,44 +146,76 @@ function Kycvendor() {
                   className="inputcolumn-ourProfile"
                   style={{ outline: "none", height: "50px" }}
                   type="file"
-                  {...register("AddressProof", { required: true })}
-                  onChange={(e) => {
-                    setPanCard(e.target.files[0]);
-                    console.log("e.target.files[0]", e.target.files[0]);
-                  }}
+                  onChange={handleFileChange}
                 />
-                {/* {errors.AddressProof && (
-                <p className="text-danger">pancard upload is required</p>
-              )}
-              <p>
-                Only 1 document in pdf,jpeg and png format with maximum 5Mb
-                uploaded
-              </p> */}
               </Col>
             </Row>
             <Row className="kycRow_Container">
               <Col sm={12} lg={4}>
-                <label>Address Proof: </label>
+                <label>Account Number: </label>
               </Col>
               <Col sm={12} lg={6}>
                 <input
-                  {...register("addressProof", { required: true })}
+                  type="number"
+                  {...register("accountno", { required: true })}
                   className="inputcolumn-ourProfile"
                 />
-                {errors.addressProof && (
-                  <p className="text-danger">Address is required</p>
+                {errors.accountno && (
+                  <p className="text-danger">Account number is required</p>
+                )}
+              </Col>
+            </Row>
+            <Row className="kycRow_Container">
+              <Col sm={12} lg={4}>
+                <label>IFSC Code</label>
+              </Col>
+              <Col sm={12} lg={6}>
+                <input
+                  {...register("ifcecode", { required: true })}
+                  className="inputcolumn-ourProfile"
+                />
+                {errors.ifcecode && (
+                  <p className="text-danger">IFCE code is required</p>
+                )}
+              </Col>
+            </Row>
+            <Row className="kycRow_Container">
+              <Col sm={12} lg={4}>
+                <label>Bank Name: </label>
+              </Col>
+              <Col sm={12} lg={6}>
+                <input
+                  {...register("bankname", { required: true })}
+                  className="inputcolumn-ourProfile"
+                />
+                {errors.bankname && (
+                  <p className="text-danger">Bank Name is required</p>
+                )}
+              </Col>
+            </Row>
+            <Row className="kycRow_Container">
+              <Col sm={12} lg={4}>
+                <label>Branch:</label>
+              </Col>
+              <Col sm={12} lg={6}>
+                <input
+                  {...register("branch", { required: true })}
+                  className="inputcolumn-ourProfile"
+                />
+                {errors.branch && (
+                  <p className="text-danger">Branch is required</p>
                 )}
               </Col>
             </Row>
             <center>
               <div className="submitbuttons px-4">
-                <button
+                <Button
                   className="button1 m-2 p-2"
                   type="submit"
                   // onClick={handleSubmit}
                 >
                   Submit
-                </button>
+                </Button>
                 <button className="button2 m-2 p-2" type="reset">
                   cancel
                 </button>

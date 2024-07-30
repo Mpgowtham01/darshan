@@ -31,10 +31,11 @@ export default function Iyer_list(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleNavigate = (prefill) => {
-    navigate("/boomyiyer/priestbooking", { state: { prefill } });
+    navigate("/bookmyiyer/priestbooking", { state: { prefill } });
   };
-  const handleClickIyerpage = () => {
-    navigate("/iyer_LandingPage");
+  const handleClickIyerpage = (item) => {
+    console.log('objectitem', item)
+    navigate(`/iyer_LandingPage/${item}`);
   };
   
   const { state: location } = useLocation();
@@ -329,7 +330,7 @@ export default function Iyer_list(props) {
                         borderTop: "none",
                       }}
                     >
-                      <Button className="guide-profile-btn" onClick={handleClickIyerpage}>
+                      <Button className="guide-profile-btn" onClick={()=>handleClickIyerpage(item.iyerId)}>
                        
                           View Iyer
                       

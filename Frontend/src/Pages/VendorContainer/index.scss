@@ -30,7 +30,7 @@
   width: 50%;
   height: 38vh;
   float: right;
-   margin: 8%; 
+  margin: 8%;
   margin-top: 10%;
   border-radius: 0%;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
@@ -51,12 +51,6 @@
   background-color: #ee9b1f;
 }
 
-
-
-
-
-
-
 // jnnjnkjnkkj
 .myhome_title {
   width: 85%;
@@ -65,9 +59,9 @@
   background-color: #03022b;
   margin: 8%;
 }
-.vendor_view_profile{
+.vendor_view_profile {
   background-color: #ff0000;
-  border:1px solid #ff0000;
+  border: 1px solid #ff0000;
   margin-top: 10px;
 }
 .myhome_list {
@@ -86,10 +80,6 @@
   margin-bottom: 5%;
 }
 
-
-
-
-
 .imagecolumn {
   height: 41vh;
   width: 60%;
@@ -100,7 +90,7 @@
   height: 32px;
   width: 29%;
 }
-.packagecard_img{
+.packagecard_img {
   width: 100%;
   height: 30px;
 }
@@ -110,13 +100,11 @@
   margin: 2%;
 }
 
-
-
 .required_column {
   color: red;
 }
 // ourProfie
-.kycRow_Container{
+.kycRow_Container {
   display: flex;
   justify-content: center;
 }
@@ -125,7 +113,7 @@
   } */
 .formrow {
   display: flex;
-   justify-content: end;
+  justify-content: end;
   font-weight: bold;
   font-size: 16px;
 }
@@ -137,25 +125,6 @@
   border: #03022b;
   margin-bottom: 5%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .upgrade_column {
   display: flex;
@@ -218,7 +187,7 @@
 .inputcolumn-ourProfile {
   border-radius: 8px;
   width: 90% !important;
-  height: 40px ;
+  height: 40px;
   margin-bottom: 5%;
   padding: 5px !important;
   font-size: 1rem !important;
@@ -226,7 +195,7 @@
   border-radius: 7px !important;
   outline: none !important;
 }
-.vendorpage_labelCss{
+.vendorpage_labelCss {
   font-size: 15px;
   margin-bottom: 5px;
   font-weight: 450;
@@ -239,7 +208,7 @@
 
   margin-bottom: 5%;
 }
-.inputcolumn_drp_ourProfile{
+.inputcolumn_drp_ourProfile {
   border-radius: 8px;
   width: 51%;
   height: 35px;
@@ -282,8 +251,8 @@
 .note {
   color: red;
 }
-.ourProfileParentdiv{
-  width: 60vw !important;
+.ourProfileParentdiv {
+  // width: 60vw !important;
 }
 // .AddCategoryBtn_css{
 //   display: flex;
@@ -391,11 +360,11 @@
 /* .button1:hover {
       background-color: none !important;
     } */
-     .ourProfile_Heading_div{
-      font-size: 18px;
-      font-weight: 600;
-      display: flex;
-     }
+.ourProfile_Heading_div {
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+}
 .packagecard {
   height: 50vh;
   width: 70%;

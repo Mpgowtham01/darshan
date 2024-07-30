@@ -22,6 +22,7 @@ export const sidebarMenus = [
     children: [
       { name: "Temple List", path: "/admin/temple" },
       { name: "Main God", path: "/admin/mainGodList" },
+      { name: "Add New Temple", path: "/admin/AddNewTempleList" },
       { name: "Pariharam", path: "/admin/pariharam" },
       { name: "Country", path: "/admin/country" },
       { name: "State", path: "/admin/state" },

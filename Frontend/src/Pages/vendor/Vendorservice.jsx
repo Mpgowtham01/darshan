@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import yatra from "../../components/Images/yatra.png";
 import book from "../../components/Images/book.png";
 import Layout from "../../components/Layout";
-import puja from "../../components/Images/pooja.png";
 import guide from "../../components/Images/guidelogo.png";
 import training from "../../components/Images/training.png";
 import iyer from "../../components/Images/iyerlogo.png";
@@ -86,7 +85,11 @@ const Vendorservice = () => {
                               justifyContent: "center",
                             }}
                           >
-                            <img src={list?.image} style={{ width: "100px" }} />
+                            <img
+                              src={list?.image}
+                              alt="templeimages"
+                              style={{ width: "100px" }}
+                            />
                           </div>
                           <br />
                           <div

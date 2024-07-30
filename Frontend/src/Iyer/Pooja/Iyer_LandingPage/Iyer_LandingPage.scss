@@ -1,0 +1,116 @@
+.rateingCard_css {
+  background-color: #2a8531;
+  width: 38px;
+  height: 24px;
+  border-radius: 6px;
+  color: white;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  border: 1px solid #2a8531;
+  font-size: 17px;
+  font-weight: 500;
+}
+.ratingCard_divs {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.rateingName_css {
+  background-color: #111;
+  width: 35px;
+  height: 24px;
+  border-radius: 6px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+}
+.iyerReviewSection_img{
+    width: 90%;
+    height: 450px;
+    border-radius: 5px;
+}
+.iyerRevie_rightSideContainer{
+    align-content: center;
+}
+.rateingHeadingDiv_css {
+  display: flex;
+  align-items: center;
+}
+.tick_icon_css {
+  background-color: #111;
+  color: white;
+  border-radius: 100%;
+  font-size: 17px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  width: 16px;
+  height: 17px;
+}
+.icon_logoCss{
+    font-size: 25px;
+
+}
+.font_sizeCss_container{
+    font-size: 19px;
+}
+.Quick_Information_heading{
+    color: gray;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.Quick_Information_subHeading{
+    font-size: 16px;
+    font-weight: 550;
+}
+.iyerServicesDetails_container{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+.tick_icon_css1{
+    background-color: #2a8531;
+    color: white;
+    border-radius: 100%;
+    font-size: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+}
+.Quick_Information_timing{
+    display: flex;
+    justify-content: space-between;
+}
+.reiew_div{
+    display: flex;
+    align-items: center;
+    margin-bottom:10px ;
+    font-weight: 600;
+    font-size: 16px;
+}
+.review_paragraphyCss{
+    font-size: 20px;
+    font-weight: 600;
+}
+.iyerLandingpage_backbtn{
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: gray;
+    border: grey;
+
+}
+.iyerLandingpage_backbtn:hover{
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: gray;
+    border: grey;
+
+}

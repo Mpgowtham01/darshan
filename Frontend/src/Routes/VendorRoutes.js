@@ -1,11 +1,11 @@
-import VendorCategoryv from "../Pages/Admin/VendorNew/VendorCategoryv";
-import Vendordetailsv from "../Pages/Admin/VendorNew/Vendordetailsv";
-import VendorDashboard from "../Pages/Admin/VendorNew/VendorDashboard";
-import CategoryList from "../Pages/Admin/VendorNew/CategoryList";
-import VendorOffers from "../Pages/Admin/VendorNew/vendoroffers";
-import VendorOffersAdd from "../Pages/Admin/VendorNew/vendoroffersadd";
-import Advertisement from "../Pages/Admin/VendorNew/Advertisemnet";
-import AddAdvertisement from "../Pages/Admin/VendorNew/AddAdvertisement";
+// import VendorCategoryv from "../Pages/Admin/VendorNew/VendorCategoryv";
+// import Vendordetailsv from "../Pages/Admin/VendorNew/Vendordetailsv";
+// import VendorDashboard from "../Pages/Admin/VendorNew/VendorDashboard";
+// import CategoryList from "../Pages/Admin/VendorNew/CategoryList";
+// import VendorOffers from "../Pages/Admin/VendorNew/vendoroffers";
+// import VendorOffersAdd from "../Pages/Admin/VendorNew/vendoroffersadd";
+// import Advertisement from "../Pages/Admin/VendorNew/Advertisemnet";
+// import AddAdvertisement from "../Pages/Admin/VendorNew/AddAdvertisement";
 import VendorContainer from "../Pages/VendorContainer/DefaultLayout";
 
 export const VendorRoutes = [

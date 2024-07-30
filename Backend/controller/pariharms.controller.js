@@ -43,10 +43,15 @@ exports.pariharamsCreate = (req, res) => {
   var pariharam_name = req.body.pariharam_name;
   var created_by = req.body.created_by || 1;
   var is_active = req.body.is_active || 1;
+  var description = req.body.description;
+  var manthiram = req.body.manthiram;
+  var pariharamImage = req.body.pariharamImage;
+
+  console.log("req.body", req.body);
 
   var sql = `INSERT INTO pariharams
-    ( pariharam_name,created_by, is_active) VALUES
-      ("${pariharam_name}","${created_by}", "${is_active}")`;
+    ( pariharam_name,created_by, is_active,description,manthiram,pariharamImage) VALUES
+      ("${pariharam_name}","${created_by}","${is_active}","${description}","${manthiram}","${pariharamImage}")`;
   console.log(sql, "here");
   dbConfig.query(sql, function (err, rows) {
     if (err !== null) {
@@ -61,10 +66,16 @@ exports.pariharamsCreate = (req, res) => {
 exports.pariharamsUpdate = (req, res) => {
   var id = req.params.id;
   var pariharam_name = req.body.pariharam_name;
+  var description = req.body.description;
+  var manthiram = req.body.manthiram;
+  var pariharamImage = req.body.pariharamImage;
   var created_by = req.body.created_by || 0;
   var is_active = req.body.is_active || 0;
 
   var sql = `UPDATE pariharams SET pariharam_name="${pariharam_name}",
+description="${description}",
+manthiram="${manthiram}",
+pariharamImage="${pariharamImage}",
                                   created_by ="${created_by}",
                                   is_active ="${is_active}"
    WHERE pariharam_id="${id}" `;

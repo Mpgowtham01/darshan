@@ -4,14 +4,13 @@ import Matrimonial from "../Pages/Admin/CommunityUser/CommunityPages/Matrimonial
 import Notification from "../Pages/Admin/CommunityUser/CommunityPages/Notification";
 import Profile from "../Pages/Admin/CommunityUser/CommunityProfile";
 import AddFamily from "../Pages/Admin/CommunityUser/CommunityPages/AddFamily";
-import AddUser from "../Pages/Admin/kulateyvam/Addkulateyamdashboard/AddUser";
 import AddUserFam from "../Pages/Admin/CommunityUser/CommunityPages/AddUserFam.js";
 
 export const CommunityRoutes = [
   {
     path: "",
     name: "Dashboard",
-    element:<Dashboard/> ,
+    element: <Dashboard />,
   },
   {
     path: "/communityUser/:groupName/profile",
@@ -21,17 +20,17 @@ export const CommunityRoutes = [
   {
     path: "/communityUser/:groupName/notification",
     name: "Notification",
-    element: <Notification/>,
+    element: <Notification />,
   },
   {
     path: "/communityUser/:groupName/matrimonial",
     name: "Matrimonial",
-    element: <Matrimonial/>,
+    element: <Matrimonial />,
   },
   {
     path: "/communityUser/:groupName/jobs",
     name: "Matrimonial",
-    element: <Jobs/>,
+    element: <Jobs />,
   },
   {
     path: "/communityUser/:groupName/familymembers",
@@ -43,5 +42,4 @@ export const CommunityRoutes = [
     name: "FamilyListAddUser",
     element: <AddUserFam />,
   },
-  ];
-  
+];

@@ -93,8 +93,10 @@ import RoomBookingUi from "./Pages/Booking/RoomBooking/RoomBookingUi.jsx";
 import RoomBookinglandingPage from "./Pages/Booking/RoomBooking/RoomBookinglandingPage.js";
 import IyerLandingPage from "./Iyer/Pooja/Iyer_LandingPage/Iyer_LandingPage.js";
 
+
+
 const ProtectedRoute = ({ Component, redirectTo = "/login" }) => {
-  const isAuthenticated = sessionStorage.getItem("USER_AUTH_STATE");
+  const isAuthenticated = localStorage.getItem("USER_AUTH_STATE");
   // const isAuthenticated = true;
   const location = useLocation();
 
@@ -133,6 +135,7 @@ const App = () => {
         <Route path="/alltemples" element={<TempleAllPage />} />
         <Route path="/alltemples/:bySearch" element={<TempleAllPage />} />
         <Route path="/temple-blogs" element={<BlogsPage />} />
+
         {/* <Route
           path="/events-list"
           element={<ProtectedRoute Component={Events} />}
@@ -192,7 +195,7 @@ const App = () => {
         <Route path="/resetPassword/:secret" element={<ResetPassword />} />
         <Route path="/iyerr" element={<UserIyerDashboard />} />
         <Route
-          path="/boomyiyer/priestbooking"
+          path="/bookmyiyer/priestbooking"
           element={<PriestBookingForm />}
         />
         {/* <Route path="/yatrabooking" element={<YatraBookingForm />} /> */}
@@ -209,7 +212,7 @@ const App = () => {
         />
         <Route path="/yatrabooking/form" element={<YatraBookingForm />} />
         <Route path="/roombooking" element={<RoomBooking />} />
-        <Route path="/iyer_LandingPage" element={<IyerLandingPage />} />
+        <Route path="/iyer_LandingPage/:id" element={<IyerLandingPage />} />
 
         <Route
           path="/roombookingDetails"
@@ -237,7 +240,11 @@ const App = () => {
           ))}
         </Route>
 
-        <Route path="/home" element={<Home />} />
+        <Route
+          path="/product"
+          element={<ProtectedRoute Component={Home} redirectTo="/Login" />}
+        />
+
         <Route path="/product" element={<Product />} />
         <Route path="/product/:id" element={<Products />} />
         <Route path="/about" element={<AboutPage />} />
@@ -354,7 +361,7 @@ const App = () => {
         />
         <Route path="/dilapidatedTemples" element={<DilapidatedTempleCard />} />
         <Route
-          path="/dilapidatedTemples/NageswaraTemple"
+          path="/dilapidatedTemples/:id"
           element={<DilapidatedTempleLandingPage />}
         />
       </Routes>

@@ -156,8 +156,12 @@ const Inauspicious = require("./router/Inauspiciousevent");
 const guidelist = require("./router/guidelist.router");
 const guide_guidelist = require("./router/guide_guidelist.router");
 const yatraBookingRouters = require("./router/YatraBooking.router");
+const AddNewTemple = require("./router/AddNewTempleRouter");
+
+
 const hotelBookingRouters = require("./router/HotelBooking.router");
 const subGroupRouters = require("./router/subGroupRouter");
+const DilapidateTempleRouters = require("./router/DilapateTemple.router");
 
 app.get("/logout", (req, res) => {
   res
@@ -221,6 +225,7 @@ app.use("/iyerbooking", iyerbookingRouter);
 app.use("/yatrabook", yatraBookingRouters);
 app.use("/roombook", hotelBookingRouters);
 app.use("/subGrroup", subGroupRouters);
+app.use("/dilapidated", DilapidateTempleRouters);
 app.use("/insidetemple", selectinsidetemple);
 app.use("/outsidetemple", selectoutsidetemple);
 app.use("/selectfunctiontype", selectfunctiontype);
@@ -249,6 +254,8 @@ app.use("/community", communityRouter);
 app.use("/login", loginRouter);
 app.use("/communityTemple", communityTempleRouter);
 app.use("/yatraBooking", yatraBookingRouter);
+app.use("/AddNewTemple",AddNewTemple );
+
 // app.use("/roomBooking", roomBookingRouter);
 
 // app.use("/communityParent", communityParentRouter);

@@ -1,7 +1,6 @@
 import React from "react";
 import { MdAdd } from "react-icons/md";
 import { Table, Button } from "antd";
-import Spinner from "../../Pages/AllTemplesPage/Spinner";
 
 const DataListTable = ({
   title,
@@ -9,7 +8,7 @@ const DataListTable = ({
   columns,
   dataList,
   showAddNewBtn = true,
-  handleAddNewBtn = () => { },
+  handleAddNewBtn = () => {},
 }) => {
   return (
     <>
@@ -21,17 +20,17 @@ const DataListTable = ({
           <input
             placeholder="Search..."
             className="blog-list-search ps-2"
-            onChange={e => handleSearch(e)}
+            onChange={(e) => handleSearch(e)}
           />
-          {
-            showAddNewBtn &&
+          {showAddNewBtn && (
             <Button
               onClick={handleAddNewBtn}
-              className="table__container-list-button">
+              className="table__container-list-button"
+            >
               <MdAdd />
               Add New
             </Button>
-          }
+          )}
         </div>
 
         <div className="table__container-list-table">
