@@ -24,6 +24,21 @@ router.get("/bookings/:userId", async (req, res) => {
     res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });
+
+router.get("/getVendor/:vendorId", async (req, res) => {
+  const { vendorId } = req.params;
+
+  try {
+    const bookings = await iyerbookingController.getBookingsByVendorId(
+      vendorId
+    );
+    res.json({ success: true, data: bookings });
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
+});
+
 router.delete("/deletebooking/:userId", async (req, res) => {
   try {
     let result = await iyerbookingController.deleteIyer(req);
@@ -32,6 +47,16 @@ router.delete("/deletebooking/:userId", async (req, res) => {
     res.status(500).send(err);
   }
 });
+
+router.put("/updateApproveBooking/:id", async (req, res) => {
+  try {
+    let result = await iyerbookingController.updateApproval(req);
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 router.get("/getSingleOrder/:iyerBookingId", async (req, res) => {
   try {
     let result = await iyerbookingController.getSingleIyer(req);

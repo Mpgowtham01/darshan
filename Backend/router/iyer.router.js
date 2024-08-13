@@ -94,6 +94,8 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+
+
 router.get("/getAllIyerlist", async (req, res) => {
   try {
     const result = await iyercreateController.getAllIyer();
@@ -116,7 +118,6 @@ router.get("/getbyid/:id", async (req, res) => {
 });
 
 router.put("/updateIyer/:id", async (req, res) => {
-  console.log("object");
   try {
     let result = await iyercreateController.update(req);
     res.send(result);

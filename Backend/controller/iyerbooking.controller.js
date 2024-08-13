@@ -6,32 +6,65 @@ iyerBooking.bookIyer = async (req) => {
   console.log("req.body :>> ", req.body);
   return new Promise((resolve, reject) => {
     try {
-      var user_id = req.body.userId;
-      var country = req.body.country;
-      var state = req.body.state;
-      var district = req.body.district;
-      var city = req.body.city;
-      var area = req.body.area;
-      var address = req.body.address;
-      var date = req.body.date;
-      var time = req.body.time;
-      var name = req.body.name;
-      var contact = req.body.contact;
-      var email = req.body.email;
-      var servicetype = req.body.servicetype;
-      var special_instruction = req.body.specialInstruction;
-      var duration = req.body.duration;
+      const {
+        userId: user_id,
+        vendorId,
+        servicetype,
+        specialInstruction: special_instruction,
+        date,
+        startTime: start_time,
+        endTime: end_time,
+        place,
+        name,
+        contact,
+        email,
+        address,
+        approved = 0,
+      } = req.body;
 
-      const sql = `INSERT INTO iyer_booking (user_id, country, state, district, city, area, address, date, time,servicetype,special_instruction,duration, name, contact, email) 
-                     VALUES ('${user_id}', '${country}', '${state}', '${district}', '${city}', '${area}', '${address}', '${date}', '${time}',
-                     '${servicetype}','${special_instruction}','${duration}', '${name}', '${contact}', '${email}')`;
+      const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        return date.toISOString().slice(0, 10);
+      };
 
-      dbConfig.query(sql, (err, result) => {
+      const formatDateTime = (timestamp) => {
+        const date = new Date(timestamp);
+        return date.toISOString().slice(0, 19).replace("T", " ");
+      };
+
+      const formattedDate = formatDate(date);
+      const formattedStartTime = formatDateTime(start_time);
+      const formattedEndTime = formatDateTime(end_time);
+
+      const sql = `
+        INSERT INTO iyer_booking (
+          user_id, vendor_id, servicetype, special_instruction, date, start_time, end_time,
+          place, name, contact, email, address,approved
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
+      `;
+
+      const values = [
+        user_id,
+        vendorId,
+        servicetype,
+        special_instruction,
+        formattedDate,
+        formattedStartTime,
+        formattedEndTime,
+        place,
+        name,
+        contact,
+        email,
+        address,
+        approved,
+      ];
+
+      dbConfig.query(sql, values, (err, result) => {
         if (err) {
           console.log("err!", err);
-          return reject({ status: 500, message: "error occurred" });
+          return reject({ status: 500, message: "Error occurred" });
         } else {
-          return resolve({ status: 200, message: "iyer booked successfully" });
+          return resolve({ status: 200, message: "Iyer booked successfully" });
         }
       });
     } catch (e) {
@@ -43,37 +76,35 @@ iyerBooking.bookIyer = async (req) => {
 
 iyerBooking.getallIyerBooking = async () => {
   return new Promise((resolve, reject) => {
-    try {
-      const sql = `SELECT iyer_booking.iyer_booking_id,
-            user_id,
-            priest_function.function_name,
-            iyer_booking.isAdmin_Approved,
-            iyer_booking.language as languageId,
-            iyer_booking.user_id,
-            iyer_booking.city as cityId,
-            iyer_booking.function_name as functionId,
-            iyer_booking.function_type as functiontypeId,
-            userregister.UserName,
-            iyer_booking.temple as templeId
-            FROM iyer_booking`;
-      dbConfig.query(sql, (err, result) => {
-        if (!err) {
-          return resolve(result);
-        } else {
-          return reject(err);
-        }
-      });
-    } catch (err) {
-      return reject(err);
-    }
+    const sql = `SELECT * FROM iyer_booking`;
+
+    dbConfig.query(sql, (err, results) => {
+      if (err) {
+        console.log("Database error:", err);
+        return reject({ status: 500, message: "Error occurred" });
+      } else {
+        return resolve({ status: 200, data: results });
+      }
+    });
   });
 };
-//get all with iyerApproved
 
 iyerBooking.getBookingsByUserId = async (userId) => {
   return new Promise((resolve, reject) => {
     const sql = `SELECT * FROM iyer_booking WHERE user_id = ?`;
     dbConfig.query(sql, [userId], (err, results) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(results);
+    });
+  });
+};
+
+iyerBooking.getBookingsByVendorId = async (vendorId) => {
+  return new Promise((resolve, reject) => {
+    const sql = `SELECT * FROM iyer_booking WHERE vendor_id = ?`;
+    dbConfig.query(sql, [vendorId], (err, results) => {
       if (err) {
         return reject(err);
       }
@@ -98,6 +129,43 @@ iyerBooking.deleteIyer = async (req, res) => {
   } catch (err) {
     return reject(err);
   }
+};
+
+iyerBooking.updateApproval = async (req, res) => {
+  console.log("req.body :>> ", req.body);
+  return new Promise((resolve, reject) => {
+    try {
+      const { id } = req.params;
+      1;
+      console.log("booki :>> ", id);
+      if (!id) {
+        return reject({ status: 400, message: "Booking ID is required" });
+      }
+
+      const sql = `
+        UPDATE iyer_booking
+        SET approved = 1
+        WHERE id = ?
+      `;
+
+      dbConfig.query(sql, [id], (err, result) => {
+        if (err) {
+          console.log("err!", err);
+          return reject({ status: 500, message: "Error occurred" });
+        } else if (result.affectedRows === 0) {
+          return reject({ status: 404, message: "Booking not found" });
+        } else {
+          return resolve({
+            status: 200,
+            message: "Booking approved successfully",
+          });
+        }
+      });
+    } catch (e) {
+      console.log(e);
+      return reject({ status: 500, message: "Internal Server Error" });
+    }
+  });
 };
 
 iyerBooking.getallIyerBookingWithApprove = async () => {

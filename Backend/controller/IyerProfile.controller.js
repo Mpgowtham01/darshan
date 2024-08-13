@@ -2,7 +2,6 @@ const dbConfig = require("../database/config");
 
 let iyer = {};
 
-// Function to create a new record
 iyer.create = async (req, res) => {
   return new Promise((resolve, reject) => {
     try {
@@ -13,6 +12,11 @@ iyer.create = async (req, res) => {
         city,
         country,
         district,
+        countryName,
+        districtName,
+        stateName,
+        cityName,
+        areaName,
         language,
         mobileNumber,
         poojaCounts,
@@ -28,7 +32,7 @@ iyer.create = async (req, res) => {
         address,
         pincode,
       } = req.body;
-
+      console.log("req.body :>> ", req.body);
       const sql = `INSERT INTO iyerprofile (
         AlternateNumber,
         aadharNumber,
@@ -36,6 +40,11 @@ iyer.create = async (req, res) => {
         city,
         country,
         district,
+        countryName,
+        districtName,
+        stateName,
+        cityName,
+        areaName,
         language,
         mobileNumber,
         poojaCounts,
@@ -50,7 +59,7 @@ iyer.create = async (req, res) => {
         vendorId,
         address,
         pincode
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?)`;
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?)`;
 
       const values = [
         AlternateNumber,
@@ -59,6 +68,11 @@ iyer.create = async (req, res) => {
         city,
         country,
         district,
+        countryName,
+        districtName,
+        stateName,
+        cityName,
+        areaName,
         JSON.stringify(language),
         mobileNumber,
         poojaCounts,
@@ -157,19 +171,22 @@ iyer.update = async (req, res) => {
         IFSCCode,
         BankName,
         branch,
+        countryName,
+        districtName,
+        stateName,
+        cityName,
+        areaName,
+        available_dates,
       } = req.body;
+      console.log("req.body :>> ", req.body);
 
-      // Ensure vendorId is provided
       if (!vendorId) {
         return reject({ status: 400, message: "Vendor ID is required" });
       }
-
-      // Build the dynamic SQL query
       let sql = "UPDATE iyerprofile SET ";
       let values = [];
       let fieldUpdates = [];
 
-      // Add fields to update if they are provided
       if (AlternateNumber !== undefined) {
         fieldUpdates.push("AlternateNumber = ?");
         values.push(AlternateNumber);
@@ -274,13 +291,33 @@ iyer.update = async (req, res) => {
         fieldUpdates.push("branch = ?");
         values.push(branch);
       }
+      if (countryName !== undefined) {
+        fieldUpdates.push("countryName = ?");
+        values.push(countryName);
+      }
+      if (districtName !== undefined) {
+        fieldUpdates.push("districtName = ?");
+        values.push(districtName);
+      }
+      if (stateName !== undefined) {
+        fieldUpdates.push("stateName = ?");
+        values.push(stateName);
+      }
+      if (cityName !== undefined) {
+        fieldUpdates.push("cityName = ?");
+        values.push(cityName);
+      }
+      if (areaName !== undefined) {
+        fieldUpdates.push("areaName = ?");
+        values.push(areaName);
+      }
+      if (available_dates !== undefined) {
+        fieldUpdates.push("available_dates = ?");
+        values.push(JSON.stringify(available_dates)); // Convert array to JSON string
+      }
 
-      // Append the WHERE clause
       sql += fieldUpdates.join(", ") + " WHERE vendorId = ?";
-      values.push(vendorId); // Ensure vendorId is last
-
-      console.log("Generated SQL Query:", sql);
-      console.log("Values Array:", values);
+      values.push(vendorId);
 
       dbConfig.query(sql, values, (err, result) => {
         if (err) {
