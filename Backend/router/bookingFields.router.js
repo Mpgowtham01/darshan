@@ -21,40 +21,45 @@ router.get("/getAll", (req, res) => {
 
 // Create Booking Fields
 router.post("/create", (req, res) => {
-    try {
-        const name = req.body.name;
+    const { name, main_god_name, description } = req.body;
 
-        const query = `INSERT INTO booking_fields(name) VALUES("${name}");`;
-        dbConfig.query(query, (err, rows) => {
+    try {
+        const query = 'INSERT INTO booking_fields(name, main_god_name, description) VALUES (?, ?, ?)';
+        const values = [name, main_god_name, description];
+        
+        dbConfig.query(query, values, (err, rows) => {
             if (err) {
-                return res.status(400).json({ status: "Failed", err });
+                return res.status(400).json({ status: "Failed", error: err.message });
             }
 
             res.json({ status: "Success", result: rows });
         });
     } catch (error) {
-        res.status(500).json({ status: "Failed" });
+        res.status(500).json({ status: "Failed", error: error.message });
     }
 });
 
 // Update Booking field
 router.put("/update/:id", (req, res) => {
-    try {
-        const name = req.body?.name;
-        const id = req.params?.id;
+    const { name, main_god_name, description } = req.body;
+    const { id } = req.params;
 
-        const query = `UPDATE booking_fields SET name = "${name}" WHERE id = ${id};`;
-        dbConfig.query(query, (err, rows) => {
+    try {
+        const query = `UPDATE booking_fields SET name = ?, main_god_name = ?, description = ? WHERE id = ?`;
+        const values = [name, main_god_name, description, id];
+
+        dbConfig.query(query, values, (err, rows) => {
             if (err) {
-                return res.status(400).json({ status: "Failed" });
+                return res.status(400).json({ status: "Failed", error: err.message });
             }
 
             res.json({ status: "Success", result: rows });
         });
     } catch (error) {
-        res.status(500).json({ status: "Failed" });
+        res.status(500).json({ status: "Failed", error: error.message });
     }
 });
+
 
 // Delete Booking Field
 router.delete("/delete/:id", (req, res) => {

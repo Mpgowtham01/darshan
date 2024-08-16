@@ -69,6 +69,8 @@ templeCreate.TempleNewCreate = async (req) => {
         grouptable_name,
         pariharam_id,
         pariharam_name,
+        bookingField,
+
       } = req.body;
 
       const getMaxTempleIdSQL =
@@ -92,8 +94,8 @@ templeCreate.TempleNewCreate = async (req) => {
          thalavirutcham, prayer, tourist_id, functionsInsideTemple, annathanam, chariotTemple, donation, 
          inchargeName, phone, temple_year, control_by, morningTime, eveningTime, aagamam, vimanaType, 
          PadalPettrathu, sanctorum, heritage, centuryBelong, verses, kingPeriod, 
-         poetSaints, youtubeUrl,poojaField,subGodNames,tankInformation,Sculpturedetails,MuralDetail,routes,amenities,main_image,countryName,stateName,districtName,cityName,main_god_name,speciality_name,grouptable_name,pariharam_id,pariharam_name )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+         poetSaints, youtubeUrl,poojaField,subGodNames,tankInformation,Sculpturedetails,MuralDetail,routes,amenities,main_image,countryName,stateName,districtName,cityName,main_god_name,speciality_name,grouptable_name,pariharam_id,pariharam_name,bookingField )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 
       `;
         const values = [
@@ -159,7 +161,7 @@ templeCreate.TempleNewCreate = async (req) => {
           grouptable_name,
           JSON.stringify(pariharam_id),
           JSON.stringify(pariharam_name),
-          // JSON.stringify(req.body.subImages),
+          JSON.stringify(bookingField),
           // videoFile_path,
         ];
 
