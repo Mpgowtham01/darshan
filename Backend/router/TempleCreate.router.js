@@ -40,5 +40,14 @@ router.get("/templefilter", async (req, res) => {
     res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const templeData = await templeCreate.delete(req);
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error fetching temple data:", error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
+});
 
 module.exports = router;

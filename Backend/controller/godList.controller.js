@@ -8,6 +8,8 @@ godList.create = async (req) => {
     try {
       const {
         mainGodName,
+        ambalName,
+        godFavoriteFlower,
         description,
         image,
         subGodNames,
@@ -20,12 +22,14 @@ godList.create = async (req) => {
 
       const sql = `
       INSERT INTO godList (
-        main_god_name, description, pariharam_image, stories, related_names, festivals, mantras, prasad, vehicles
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        main_god_name,ambalName,godFavoriteFlower, description, pariharam_image, stories, related_names, festivals, mantras, prasad, vehicles
+      ) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
       const values = [
         mainGodName,
+        ambalName,
+        godFavoriteFlower,
         description,
         image,
         JSON.stringify(stories),
@@ -115,6 +119,9 @@ godList.update = async (req) => {
       console.log("id :>> ", id);
       const {
         mainGodName,
+        ambalName,
+        godFavoriteFlower,
+
         description,
 
         subGodNames,
@@ -129,6 +136,8 @@ godList.update = async (req) => {
       const sql = `
         UPDATE godList SET
           main_god_name = ?,
+          ambalName = ?,
+          godFavoriteFlower = ?,
           description = ?,
           pariharam_image = ?,
           stories = ?,
@@ -137,12 +146,14 @@ godList.update = async (req) => {
           mantras = ?,
           prasad = ?,
           vehicles = ?
-        WHERE id = ?
+          WHERE id = ?
       `;
 
       // Construct values array
       const values = [
         mainGodName,
+        ambalName,
+        godFavoriteFlower,
         description,
         image,
         JSON.stringify(stories),

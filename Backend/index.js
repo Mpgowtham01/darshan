@@ -139,6 +139,7 @@ const trainerSubcategoryListRouter = require("./router/trainerSubCategoryList.ro
 const priestFunctionRouter = require("./router/priestFunction.router");
 const eventTypeRouter = require("./router/eventType.router");
 const bookingFieldsRouter = require("./router/bookingFields.router");
+const touristList = require("./router/TouristList.router");
 const communityRouter = require("./router/community.router");
 const loginRouter = require("./router/login.router");
 const trainerclasslist = require("./router/trainerclasslist.router");
@@ -162,6 +163,9 @@ const guide_guidelist = require("./router/guide_guidelist.router");
 const yatraBookingRouters = require("./router/YatraBooking.router");
 const hotelBookingRouters = require("./router/HotelBooking.router");
 const subGroupRouters = require("./router/subGroupRouter");
+const godFollowersRouters = require("./router/godFollowers.router");
+
+
 const DilapidateTempleRouters = require("./router/DilapateTemple.router");
 const godList = require("./router/godList.router");
 const TempleNew = require("./router/TempleCreate.router");
@@ -235,6 +239,8 @@ app.use("/iyerbooking", iyerbookingRouter);
 app.use("/yatrabook", yatraBookingRouters);
 app.use("/roombook", hotelBookingRouters);
 app.use("/subGrroup", subGroupRouters);
+app.use("/god_Followers", godFollowersRouters);
+
 app.use("/dilapidated", DilapidateTempleRouters);
 app.use("/insidetemple", selectinsidetemple);
 app.use("/outsidetemple", selectoutsidetemple);
@@ -260,6 +266,7 @@ app.use("/trainerSubCategoryList", trainerSubcategoryListRouter);
 app.use("/priestFunction", priestFunctionRouter);
 app.use("/eventType", eventTypeRouter);
 app.use("/booking", bookingFieldsRouter);
+app.use("/touristlist", touristList);
 app.use("/community", communityRouter);
 app.use("/login", loginRouter);
 app.use("/communityTemple", communityTempleRouter);

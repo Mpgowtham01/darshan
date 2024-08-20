@@ -58,56 +58,57 @@ exports.getAllCity = (req, res) => {
 
 //city create
 exports.createCity = (req, res) => {
-  var country_id = req.body.country_id;
-  var state_id = req.body.state_id;
-  var district_id = req.body.district_id;
-  var city = req.body.city;
-  var created_by = req.body.created_by;
-  var is_active = req.body.is_active;
+  console.log("step1", req.body);
+  const { country_id, state_id, district_id, city, nickName } = req.body;
 
-  var sql = `INSERT INTO city
-    (
+  const sql = `
+    INSERT INTO city 
+      (country_id, state_id, district_id, city, created_by, is_active, nickName) 
+    VALUES 
+      (?, ?, ?, ?, ?, ?, ?);
+  `;
+
+  const values = [
     country_id,
     state_id,
     district_id,
     city,
-    created_by,
-    is_active)
-    VALUES
-    (    "${country_id}",
-    "${state_id}",
-    "${district_id}",
-    "${city}",
-    "${1}",
-    "${1}");`;
-
-  try {
-    dbConfig.query(sql, (err, rows, fields) => {
-      if (!err) res.send(rows);
-      else console.log(err);
-    });
-  } catch (e) {
-    throw e;
-  }
+    1,       
+    1,       
+    nickName,
+  ];
+  dbConfig.query(sql, values, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('An error occurred');
+    }
+    res.send(result);
+  });
 };
+
 
 //Update city
 exports.updateCity = (req, res) => {
-  console.log("res@@@", res);
   var country_id = req.body.country_id;
   var state_id = req.body.state_id;
   var district_id = req.body.district_id;
   var city = req.body.city;
+
   var created_by = req.body.created_by;
   var is_active = req.body.is_active;
+  var nickName = req.body.nickName;
+
   var sql = `UPDATE city
     SET
     country_id = "${country_id}",
     state_id = "${state_id}",
     district_id = "${district_id}",
     city = "${city}",
+
     created_by = "${1}",
-    is_active = "${1}"
+    is_active = "${1}",
+        nickName = "${nickName}",
+
     WHERE id = "${req.params.id}";`;
   try {
     dbConfig.query(sql, (err, rows, fields) => {

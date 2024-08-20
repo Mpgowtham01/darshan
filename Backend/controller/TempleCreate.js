@@ -70,7 +70,15 @@ templeCreate.TempleNewCreate = async (req) => {
         pariharam_id,
         pariharam_name,
         bookingField,
-
+        fireHelpline,
+        abusedHelpline,
+        ambulanceHelpline,
+        policeHelpline,
+        accidentHelpline,
+        koopuramDetail,
+        selectedTemples,
+        importantNotes,
+        templeStatus
       } = req.body;
 
       const getMaxTempleIdSQL =
@@ -94,8 +102,8 @@ templeCreate.TempleNewCreate = async (req) => {
          thalavirutcham, prayer, tourist_id, functionsInsideTemple, annathanam, chariotTemple, donation, 
          inchargeName, phone, temple_year, control_by, morningTime, eveningTime, aagamam, vimanaType, 
          PadalPettrathu, sanctorum, heritage, centuryBelong, verses, kingPeriod, 
-         poetSaints, youtubeUrl,poojaField,subGodNames,tankInformation,Sculpturedetails,MuralDetail,routes,amenities,main_image,countryName,stateName,districtName,cityName,main_god_name,speciality_name,grouptable_name,pariharam_id,pariharam_name,bookingField )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+         poetSaints, youtubeUrl,poojaField,subGodNames,tankInformation,Sculpturedetails,MuralDetail,routes,amenities,main_image,countryName,stateName,districtName,cityName,main_god_name,speciality_name,grouptable_name,pariharam_id,pariharam_name,bookingField,fireHelpline,abusedHelpline,ambulanceHelpline,policeHelpline,accidentHelpline,koopuramDetails,selectedTemples,importantNotes,templeStatus )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 
       `;
         const values = [
@@ -163,6 +171,15 @@ templeCreate.TempleNewCreate = async (req) => {
           JSON.stringify(pariharam_name),
           JSON.stringify(bookingField),
           // videoFile_path,
+          fireHelpline,
+          abusedHelpline,
+          ambulanceHelpline,
+          policeHelpline,
+          accidentHelpline,
+          JSON.stringify(koopuramDetail),
+          JSON.stringify(selectedTemples),
+          importantNotes,
+          templeStatus,
         ];
 
         console.log("Values:", values);
@@ -234,7 +251,8 @@ templeCreate.filterTempleData = async (req) => {
         areaName,
         main_god_id,
         speciality_id,
-        grouptable_id,pariharam_id
+        grouptable_id,
+        pariharam_id,
       } = req.query;
 
       const conditions = [];
@@ -340,6 +358,26 @@ templeCreate.filterTempleData = async (req) => {
         message: "Internal Server Error",
         error: e,
       });
+    }
+  });
+};
+
+templeCreate.delete = async (req) => {
+  return new Promise((resolve, reject) => {
+    try {
+      var id = req.params.id;
+      console.log("id :>> ", id);
+      const sql = `DELETE FROM temple_data WHERE temple_id = ?`;
+
+      dbConfig.query(sql, [id], (err, response) => {
+        if (err) {
+          return reject(err);
+        } else {
+          return resolve(response);
+        }
+      });
+    } catch (err) {
+      return reject(err);
     }
   });
 };
